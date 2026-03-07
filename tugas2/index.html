@@ -377,11 +377,11 @@
         </section>
 
         <section>
-            <h2>03. Class Sederhana (Car)</h2>
-            <p>Pada contoh program di bawah ini terdapat class Car yang memiliki dua atribut yaitu model dan color yang
-                digunakan untuk menyimpan data mobil.
-                Selain itu terdapat dua method yaitu start() dan stop() yang berfungsi untuk menjalankan dan
-                menghentikan mobil.</p>
+            <h2>03. Class Sederhana (Truk)</h2>
+            <p>Pada contoh program di bawah ini terdapat class Truk yang memiliki dua atribut yaitu merk dan warna yang
+                digunakan untuk menyimpan spesifikasi kendaraan angkut.
+                Selain itu terdapat dua method yaitu jalan() dan parkir() yang berfungsi sebagai aksi dari objek truk
+                tersebut.</p>
 
             <div class="code-container">
                 <div class="code-header">DART SOURCE CODE</div>
@@ -389,23 +389,26 @@
 // Nim    : 251410020
 // Kelas  : SI2A
 
-class Car {
-  String? model;
-  String? color;
-  void start() {
-    print('Car started!');
+class Truk {
+  String? merk;
+  String? warna;
+  
+  void jalan() {
+    print('Truk sedang berjalan...');
   }
-  void stop() {
-    print('Car stopped!');
+  
+  void parkir() {
+    print('Truk sudah diparkir.');
   }
 }
+
 void main() {
-  Car myCar = Car();
+  Truk trukMarta = Truk();
   
-  myCar.model = "Sedan";
-  myCar.color = "Merah";
-  myCar.start();
-  myCar.stop();
+  trukMarta.merk = "Scania";
+  trukMarta.warna = "Perak";
+  trukMarta.jalan();
+  trukMarta.parkir();
 }</code></pre>
             </div>
 
@@ -414,10 +417,9 @@ void main() {
 
         <section>
             <h2>04. Object Instantiation</h2>
-            <p>Object Instantiation adalah proses membuat objek dari sebuah class.
-                Pada contoh berikut dibuat sebuah objek bernama myCar dari class Car menggunakan perintah Car myCar =
-                Car();.
-                Setelah objek dibuat, atribut model dan color diisi dengan nilai "Sedan" dan "Merah".
+            <p>Object Instantiation adalah proses pembuatan objek nyata dari sebuah class.
+                Pada contoh berikut dibuat sebuah objek bernama bisUmum dari class Bis.
+                Kemudian atribut rute dan jenis diatur nilainya untuk merepresentasikan sebuah armada transportasi umum.
             </p>
 
             <div class="code-container">
@@ -426,19 +428,19 @@ void main() {
 // Nim    : 251410020
 // Kelas  : SI2A
 
-class Car {
-  String? model; 
-  String? color; 
+class Bis {
+  String? rute; 
+  String? jenis; 
 }
 
 void main() {
-  Car myCar = Car();
+  Bis bisUmum = Bis();
   
-  myCar.model = "Sedan"; 
-  myCar.color = "Merah";
+  bisUmum.rute = "Blok M - Kota"; 
+  bisUmum.jenis = "Tingkat";
 
-  print(myCar.model); 
-  print(myCar.color);
+  print("Rute Perjalanan: ${bisUmum.rute}"); 
+  print("Jenis Kendaraan: ${bisUmum.jenis}");
 }</code></pre>
             </div>
 
@@ -447,9 +449,11 @@ void main() {
 
         <section>
             <h2>05. Constructor</h2>
-            <p>Constructor adalah metode khusus dalam sebuah class yang digunakan untuk menginisialisasi nilai atribut
-                saat objek dibuat. Pada contoh ini, constructor Car(this.model, this.color) digunakan untuk langsung
-                memberikan nilai pada atribut model dan color ketika objek myCar dibuat.</p>
+            <p>Constructor memudahkan kita untuk langsung memberikan nilai pada atribut saat objek pertama kali dibuat.
+                Contoh di bawah menggunakan class MobilBalap dimana nilai tipe dan kecepatanMaks langsung diinput
+                melalui
+                parameter
+                constructor saat inisialisasi variabel mobilMarta.</p>
 
             <div class="code-container">
                 <div class="code-header">DART SOURCE CODE</div>
@@ -457,22 +461,20 @@ void main() {
 // Nim    : 251410020
 // Kelas  : SI2A
 
-class Car {
-  String model; 
-  String color;
+class MobilBalap {
+  String tipe; 
+  int kecepatanMaks;
 
-  Car(this.model, this.color);
+  MobilBalap(this.tipe, this.kecepatanMaks);
 
-  void start() {
-    print('Engine Online: $model'); 
+  void balapan() {
+    print('$tipe sedang melaju dengan kecepatan $kecepatanMaks km/jam!'); 
   }
 }
 
 void main() {
-  Car myCar = Car("Sedan", "Merah");
-
-  myCar.start(); 
-  print(myCar.color); 
+  MobilBalap mobilMarta = MobilBalap("Ferrari Spider", 320);
+  mobilMarta.balapan(); 
 }</code></pre>
             </div>
 
@@ -481,9 +483,10 @@ void main() {
 
         <section>
             <h2>06. Practice: Mahasiswa</h2>
-            <p>Program ini membuat class Mahasiswa yang memiliki atribut nama, nim, dan ipk. Class ini juga memiliki
-                constructor untuk mengisi data saat objek dibuat dan method tampilkanData() yang digunakan untuk
-                menampilkan data mahasiswa ke layar.</p>
+            <p>Program berikut memperlihatkan implementasi class Mahasiswa dengan penambahan logika tampilan data yang
+                diatur
+                melalui method profil() untuk memberikan format output yang lebih terorganisir bagi setiap instance
+                mahasiswa.</p>
 
             <div class="code-container">
                 <div class="code-header">DART SOURCE CODE</div>
@@ -498,17 +501,17 @@ class Mahasiswa {
 
   Mahasiswa(this.nama, this.nim, this.ipk);
 
-  void tampilkanData() {
-    print('Nama : $nama');
+  void profil() {
+    print('--- DATA AKADEMIK ---');
+    print('NAMA : $nama');
     print('NIM  : $nim');
     print('IPK  : $ipk');
   }
 }
 
 void main() {
-  Mahasiswa mhs1 = Mahasiswa("Marta saputra", "251410020", 3.60);
-  
-  mhs1.tampilkanData();
+  Mahasiswa mhs1 = Mahasiswa("Marta saputra", "251410020", 3.75);
+  mhs1.profil();
 }</code></pre>
             </div>
 
@@ -517,9 +520,10 @@ void main() {
 
         <section>
             <h2>07. Encapsulation</h2>
-            <p>Encapsulation adalah konsep OOP untuk menyembunyikan data di dalam class agar tidak bisa diakses langsung
-                dari luar. Akses ke data tersebut dilakukan melalui method seperti getter dan setter untuk menjaga
-                keamanan dan kontrol terhadap data.
+            <p>Encapsulation diimplementasikan menggunakan class Pegawai untuk menjaga privasi data gaji (_gaji).
+                Variabel yang bersifat private ditandai dengan underscore agar tidak dapat diakses secara bebas secara
+                eksternal,
+                melainkan melalui getter method yang aman.
             </p>
 
             <div class="code-container">
@@ -528,23 +532,20 @@ void main() {
 // Nim    : 251410020
 // Kelas  : SI2A
 
-class Person {
-  String _name; 
-  int age;    
+class Pegawai {
+  String nama;
+  double _gaji; 
 
-  Person(this._name, this.age);
+  Pegawai(this.nama, this._gaji);
 
-  void setName(String name) => _name = name;
-  
-  String getName() => _name;
+  void updateGaji(double nilai) => _gaji = nilai;
+  double get cekGaji => _gaji;
 }
 
 void main() {
-  Person person = Person("Saputra Marta", 18);
-
-  print(person.age); 
-  person.setName("Marta saputra");
-  print(person.getName()); 
+  Pegawai staff = Pegawai("Marta Saputra", 5000000);
+  print('Staff: ${staff.nama}'); 
+  print('Gaji Saat Ini: ${staff.cekGaji}'); 
 }</code></pre>
             </div>
 
@@ -553,8 +554,11 @@ void main() {
 
         <section>
             <h2>08. This Keyword</h2>
-            <p>this adalah keyword yang digunakan untuk merujuk pada instance (objek) dari class saat ini. Biasanya
-                digunakan di dalam constructor atau method untuk mengakses field atau method milik class tersebut.</p>
+            <p>Keyword "this" digunakan untuk memperjelas identitas atribut milik class agar tidak terjadi kerancuan
+                saat
+                nama parameter sama dengan nama field. Pada class Modul berikut, this.judul memastikan bahwa nilai yang
+                diproses
+                adalah milik objek tersebut.</p>
 
             <div class="code-container">
                 <div class="code-header">DART SOURCE CODE</div>
@@ -562,14 +566,14 @@ void main() {
 // Nim    : 251410020
 // Kelas  : SI2A
 
-class Product {
-  String nama; 
-  Product(this.nama);
+class Modul {
+  String judul; 
+  Modul(this.judul);
 }
 
 void main() {
-  Product produk1 = Product("Laptop Gaming");
-  print(produk1.nama); 
+  Modul martaDev = Modul("Konsep Lanjutan OOP");
+  print("Sedang mempelajari: ${martaDev.judul}"); 
 }
 </code></pre>
             </div>
@@ -578,10 +582,11 @@ void main() {
         </section>
 
         <section>
-            <h2>09. Product Class</h2>
-            <p>Class Produk menggunakan named parameters pada constructor sehingga setiap nilai dapat diberikan dengan
-                nama parameternya. Beberapa parameter menggunakan required agar wajib diisi saat membuat objek,
-                sedangkan parameter lain memiliki nilai default.</p>
+            <h2>09. Product Class (Tiket)</h2>
+            <p>Class Tiket menggunakan named parameters demi kejelasan data saat pembuatan objek. Penggunaan keyword
+                'required'
+                memastikan atribut penting seperti acara dan harga selalu terisi, sementara kursi memiliki nilai default
+                untuk kemudahan user.</p>
 
             <div class="code-container">
                 <div class="code-header">DART SOURCE CODE</div>
@@ -589,46 +594,35 @@ void main() {
 // Nim    : 251410020
 // Kelas  : SI2A
 
-class Produk {
-  final String id, nama; 
+class Tiket {
+  final String kode, acara; 
   final double harga; 
-  final int stok;   
-  final String kategori;
+  final String kursi;   
 
-  Produk({
-    required this.id,
-    required this.nama,
+  Tiket({
+    required this.kode,
+    required this.acara,
     required this.harga,
-    this.stok = 0,
-    this.kategori = 'Umum',
+    this.kursi = 'Umum (Festival)',
   });
 }
 
 void main() {
-  Produk laptop = Produk(
-    id: "P001",
-    nama: "Laptop Gaming",
+  Tiket t1 = Tiket(
+    kode: "T-001",
+    acara: "Konferensi Teknologi",
     harga: 15000000,
-    stok: 15,
-    kategori: "Elektronik",
+    kursi: "VVIP Baris 1",
   );
 
-  Produk smartphone = Produk(
-    id: "P002",
-    nama: "Smartphone Flagship",
-    harga: 12000000,
-    stok: 25,
+  Tiket t2 = Tiket(
+    kode: "T-002",
+    acara: "Workshop Programmer",
+    harga: 500000,
   );
 
-  Produk kamera = Produk(
-    id: "P003",
-    nama: "Kamera Mirrorless",
-    harga: 20000000,
-  );
-
-  print(laptop.nama); 
-  print(smartphone.nama); 
-  print(kamera.nama); 
+  print('Acara 1: ${t1.acara} (Kursi: ${t1.kursi})'); 
+  print('Acara 2: ${t2.acara}'); 
 }</code></pre>
             </div>
 
