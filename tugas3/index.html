@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP Report - Marta saputra</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b1121;
+            --surface: #141d33;
+            --surface-hover: #1b2640;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --text-pri: #f1f5f9;
+            --text-sec: #94a3b8;
+            --border: #1e293b;
+            --code-bg: #010409;
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text-pri);
+            background-color: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            letter-spacing: -0.011em;
+        }
+
+        /* Minimal Deep Background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
+            z-index: -2;
+        }
+
+        /* Subtle Scanline/Grid Effect */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 10vw, 3.5rem);
+            letter-spacing: -0.04em;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        header p {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            letter-spacing: 0;
+            color: var(--accent);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.4s ease;
+        }
+
+        section:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
+        }
+
+        section:hover::before {
+            height: 100%;
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        p {
+            color: var(--text-sec);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        ul li {
+            margin-bottom: 14px;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-sec);
+        }
+
+        ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* CODE BOX STYLING - Terminal/IDE Style */
+        .code-container {
+            margin: 24px 0;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 10px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--text-sec);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-header::before {
+            content: "● ● ●";
+            color: #30363d;
+            letter-spacing: 4px;
+        }
+
+        pre {
+            padding: 24px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #adbac7;
+        }
+
+        .code-container code {
+            display: block;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 12px 28px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.05);
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s all;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            max-width: 1100px;
+            height: 85vh;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close {
+            position: absolute;
+            right: 24px;
+            top: 16px;
+            font-size: 32px;
+            color: var(--text-sec);
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.2s;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-sec);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 600;
+            background: rgba(59, 130, 246, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-sec);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Marta saputra</h1>
+        <p>NIM : 251410020 | KELAS : SI2A</p>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>🔁 Review OOP</h2>
+            <ul>
+                <li>OOP adalah paradigma berfokus pada objek</li>
+                <li>Kelas adalah blueprint, objek adalah instance</li>
+                <li>Constructor digunakan untuk inisialisasi objek</li>
+            </ul>
+
+            <div class="code-container">
+                <div class="code-header">📌 CONTOH: CLASS BUKU</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+class Buku {
+  String judul;
+  Buku(this.judul);
+}
+
+void main() {
+  var buku1 = Buku("Belajar Dart");
+  print(buku1.judul);
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=8a8cf128deb62878d97119a58297384a&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>🏗️ 5 Jenis Constructor</h2>
+            <ul>
+                <li><span class="highlight">Default Constructor:</span> className()</li>
+                <li><span class="highlight">Named Constructor:</span> className.name()</li>
+                <li><span class="highlight">Parameterized Constructor:</span> className(this.param)</li>
+                <li><span class="highlight">Constant Constructor:</span> const className()</li>
+                <li><span class="highlight">Factory Constructor:</span> (akan dibahas di sesi lanjut)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🚗 Class Mobil dengan Named Constructor</h2>
+            <p>Named constructor adalah constructor yang memiliki nama tambahan, sehingga dalam satu class dapat
+                memiliki beberapa constructor dengan fungsi yang berbeda.</p>
+
+            <div class="code-container">
+                <div class="code-header">📋 NAMED CONSTRUCTOR - LENGKAP</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+
+import 'dart:convert';
+
+class Mobil {
+  String? merk;
+  int? tahun;
+
+  // Parameterized constructor
+  Mobil(this.merk, this.tahun);
+
+  // Named constructor
+  Mobil.baru() {
+    merk = 'Toyota';
+    tahun = 2023;
+  }
+
+  // Named constructor dengan parameter
+  Mobil.dariJson(Map<String, dynamic> json) {
+    merk = json['merk'];
+    tahun = json['tahun'];
+  }
+
+  // Override toString for better print output
+  @override
+  String toString() {
+    return 'Mobil{merk: $merk, tahun: $tahun}';
+  }
+}
+
+void main() {
+  print('--- Demonstrasi Class Mobil ---');
+
+  // 1. Menggunakan constructor default (parameterized constructor)
+  var mobilA = Mobil('Honda', 2020);
+  print('Mobil A (constructor default): $mobilA');
+
+  // 2. Menggunakan named constructor Mobil.baru()
+  var mobilB = Mobil.baru();
+  print('Mobil B (named constructor .baru): $mobilB');
+
+  // 3. Menggunakan named constructor Mobil.dariJson()
+  String jsonString = '{"merk": "Suzuki", "tahun": 2021}';
+  Map<String, dynamic> jsonData = jsonDecode(jsonString);
+  var mobilC = Mobil.dariJson(jsonData);
+  print('Mobil C (named constructor .dariJson): $mobilC');
+
+  print('\n--- Akhir Demonstrasi ---');
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=6c066484d544a2c3aa61afea673b0bec&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>🎨 Constant Constructor (Immutable)</h2>
+            <p>Digunakan untuk objek yang tidak berubah. Semua field harus <span class="highlight">final</span>.
+                Menghemat memory untuk objek yang sama.</p>
+
+            <div class="code-container">
+                <div class="code-header">🎨 CLASS WARNA DENGAN CONST CONSTRUCTOR</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class Warna {
+  final int r, g, b;
+  const Warna(this.r, this.g, this.b);
+
+  @override
+  String toString() {
+    return 'Warna(r: $r, g: $g, b: $b)';
+  }
+}
+
+void main() {
+  const merah = Warna(255, 0, 0);
+  const merahLagi = Warna(255, 0, 0); // Menggunakan instance yang sama di memory
+
+  print(merah);
+  print(merahLagi);
+  print('Apakah identik? ${identical(merah, merahLagi)}');
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=c02d7bb7caf2b421caebc28b08371fb9&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>📍 Constructor dengan Initializer List</h2>
+            <p>Menginisialisasi field sebelum constructor body dieksekusi. Berguna untuk inisialisasi final field atau
+                validasi.</p>
+
+            <div class="code-container">
+                <div class="code-header">📍 CLASS TITIK DENGAN INITIALIZER LIST</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class Titik {
+  final double x, y;
+
+  Titik(double x, double y)
+    : x = x.abs(),
+      y = y.abs() {
+    print('Titik dibuat di (${this.x}, ${this.y})');
+  }
+}
+
+void main(){
+  print('Membuat objek Titik pertama:');
+  var titik1 = Titik(3.0, 4.0);
+  print('Titik 1: x = ${titik1.x}, y = ${titik1.y}');
+
+  print('\nMembuat objek Titik kedua dengan nilai negatif:');
+  var titik2 = Titik(-5.0, 10.0);
+  print('Titik 2: x = ${titik2.x}, y = ${titik2.y}');
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=d7eff5426f28714ad6305796320fc17f&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>👨‍🎓 Class Mahasiswa dengan Multiple Constructor</h2>
+            <p>Latihan class mahasiswa</p>
+
+            <div class="code-container">
+                <div class="code-header">📝 MAHASISWA - MULTIPLE CONSTRUCTOR</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class Mahasiswa {
+  String? nama;
+  String? nim;
+
+  Mahasiswa(this.nama, this.nim);
+
+  Mahasiswa.dariMap(Map<String, String> data) {
+    nama = data['nama'];
+    nim = data['nim'];
+  }
+
+  Mahasiswa.tanpaNama() {
+    nama = 'No Name';
+    nim = '000000';
+  }
+
+  void info() => print('Mahasiswa: $nama, NIM: $nim');
+}
+
+void main() {
+  var m1 = Mahasiswa('Marta', '251410020');
+  var m2 = Mahasiswa.dariMap({'nama': 'saputra', 'nim': '251410021'});
+  var m3 = Mahasiswa.tanpaNama();
+
+  m1.info();
+  m2.info();
+  m3.info();
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=c8bc5990b31b2485692cd5c988194a0e&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>🔒 Enkapsulasi & Private</h2>
+            <p>Enkapsulasi adalah konsep dalam pemrograman berorientasi objek yang digunakan untuk melindungi data agar
+                tidak dapat diakses secara langsung dari luar class.
+                Dengan enkapsulasi, data hanya bisa diakses melalui method tertentu sehingga lebih aman dan terkontrol.
+                Di Dart, enkapsulasi dilakukan dengan menambahkan underscore (_) di depan nama variabel untuk
+                menjadikannya
+                private.</p>
+
+            <div class="code-container">
+                <div class="code-header">👤 CLASS PERSON DENGAN PRIVATE FIELD</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class Person {
+  String _name; // Private: Hanya bisa diakses di file ini
+  int age;      // Public: Dapat diakses bebas
+
+  Person(this._name, this.age);
+
+  void info() => print('Nama: $_name, Umur: $age');
+}
+
+void main() {
+  var p = Person('Marta saputra', 18);
+  p.info();
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=d313bb01ea9501912e434a385f6081a3&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>📤 Getter & Setter</h2>
+            <p>Getter adalah method yang digunakan untuk mengambil nilai dari variabel private, sedangkan Setter adalah
+                method yang digunakan untuk mengubah nilai variabel private dengan aturan tertentu.</p>
+
+            <div class="code-container">
+                <div class="code-header">🔍 Getter dan setter</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class Person {
+  String _name;
+  int age;
+  Person(this._name, this.age);
+  
+  // GETTER
+  // 1. Menggunakan Arrow Syntax
+  String get getName1 => _name;
+  
+  // 2. Menggunakan Block Syntax
+  String get getName2 {
+    return _name;
+  }
+
+  // SETTER
+  // 1. Menggunakan Keyword 'set'
+  set setName1(String name) {
+    _name = name;
+  }
+
+  // 2. Menggunakan Method Approach
+  void setNameManual(String name) {
+    _name = name;
+  }
+}
+
+void main() {
+  Person p = Person("Marta", 18);
+  print('Umur Awal: ${p.age}');
+  
+  // Test Setters
+  p.setName1 = 'saputra';
+  p.setNameManual('Marta saputra');
+
+  // Test Getters
+  print('Hasil Getter 1: ${p.getName1}');
+  print('Hasil Getter 2: ${p.getName2}');
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=e921f4131a75b143a720343bfd43b307&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>📦 Class Produk dengan Validasi</h2>
+            <div class="code-container">
+                <div class="code-header">🛒 PRODUK - GETTER SETTER VALIDASI</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class Produk {
+  String _nama;
+  double _harga;
+  
+  Produk(this._nama, this._harga);
+  
+  // Getter
+  String get nama => _nama;
+  double get harga => _harga;
+  
+  // Setter dengan validasi
+  set nama(String value) {
+    if (value.length >= 3) {
+      _nama = value;
+    } else {
+      print('Gagal: Nama minimal 3 karakter.');
+    }
+  }
+  
+  set harga(double value) {
+    if (value > 0) {
+      _harga = value;
+    } else {
+      print('Gagal: Harga harus lebih dari 0.');
+    }
+  }
+}
+
+void main() {
+  var produk1 = Produk('Monitor Samsung', 3500.0);
+  print('Awal: ${produk1.nama} - Rp${produk1.harga}');
+  
+  // Update valid
+  produk1.nama = 'Keyboard Mekanik';
+  produk1.harga = 1200.0;
+  print('Setelah update valid: ${produk1.nama} - Rp${produk1.harga}');
+  
+  // Update tidak valid
+  produk1.nama = 'TV';      // gagal ( < 3 karakter)
+  produk1.harga = -100.0;   // gagal ( <= 0)
+  print('Setelah update gagal: ${produk1.nama} - Rp${produk1.harga}');
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=4d3a552dcc22e3e4dca996a5d1d55459&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>👤 Class User dengan Validasi</h2>
+            <p>Field private: _username, _password, _email. Setter dengan validasi.</p>
+
+            <div class="code-container">
+                <div class="code-header">🔐 USER DENGAN VALIDASI LENGKAP</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class User {
+  String _username;
+  String _password;
+  String _email;
+
+  User(this._username, this._password, this._email);
+
+  // Getter untuk semua field
+  String get username => _username;
+  String get email => _email;
+
+  // Setter dengan validasi
+  set username(String v) {
+    if (v.length >= 5) {
+      _username = v;
+    } else {
+      print('Username min 5 karakter');
+    }
+  }
+
+  set password(String v) {
+    if (v.length >= 8) {
+      _password = v;
+    } else {
+      print('Password min 8 karakter');
+    }
+  }
+
+  set email(String v) {
+    if (v.contains('@')) {
+      _email = v;
+    } else {
+      print('Format email salah (Harus @)');
+    }
+  }
+
+  void info() => print('User: $_username, Pass: $_password, Email: $_email');
+}
+
+void main() {
+  var user = User('Marta', '1611', 'admin.com');
+  user.username = 'MartaSaputra';
+  user.password = 'manis1127';
+  user.email = 'MartaSaputra@gmail.com';
+  user.info();
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=54cf8975e92ebadbf7144910f0a54f44&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>🔑 Sistem Login dengan Ganti Password</h2>
+            <p>Logika autentikasi dan prosedur perubahan password</p>
+
+            <div class="code-container">
+                <div class="code-header">🔐 USER DENGAN LOGIN & GANTI PASSWORD</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class User {
+  String _username;
+  String _password;
+
+  User(this._username, this._password);
+  String get username => _username;
+
+  bool login(String username, String password) {
+    return _username == username && _password == password;
+  }
+
+  void gantiPassword(String lama, String baru) {
+    if (_password == lama) {
+      if (baru.length >= 8) {
+        _password = baru;
+        print('Password berhasil diubah.');
+      } else {
+        print('Gagal: Password baru minimal 8 karakter.');
+      }
+    } else {
+      print('Gagal: Password lama tidak sesuai.');
+    }
+  }
+}
+
+void main() {
+  print('--- Inisialisasi User ---');
+  final User user1 = User('admin_Marta', 'securePass1611');
+  
+  print('--- Uji Coba Login ---');
+  if (user1.login('admin_Marta', 'securePass1611')) {
+    print('Login Berhasil!');
+  }
+
+  print('\n--- Uji Coba Ganti Password ---');
+  user1.gantiPassword('securePass1611', 'newSecurePass2020');
+  user1.gantiPassword('wrongPass', 'anyPass'); // Gagal
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=5bdf09797e632337cf8392b23ebb3e1e&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>🏦 Latihan: RekeningBank</h2>
+            <p>Buat kelas RekeningBank dengan Field private: _nomorRekening, _saldo, dan Method: deposit(), tarik(),
+                cekSaldo() serta Validasi: saldo tidak bisa negatif.</p>
+
+            <div class="code-container">
+                <div class="code-header">💰 TEMPLATE REKENINGBANK</div>
+                <pre><code>// Nama   : Marta saputra
+// Nim    : 251410020
+// Kelas  : SI2A
+
+class RekeningBank {
+  String _nomorRekening;
+  double _saldo;
+
+  RekeningBank(this._nomorRekening, this._saldo);
+
+  void deposit(double jml) {
+    if (jml > 0) {
+      _saldo += jml;
+      print('Deposit Rp $jml Berhasil.');
+    }
+  }
+
+  void tarik(double jml) {
+    if (jml > 0 && _saldo >= jml) {
+      _saldo -= jml;
+      print('Tarik Rp $jml Berhasil.');
+    } else {
+      print('Gagal: Saldo tidak cukup atau input tidak valid.');
+    }
+  }
+
+  void cekSaldo() {
+    print('Rekening: $_nomorRekening | Saldo: Rp $_saldo');
+  }
+}
+
+void main() {
+  var bank = RekeningBank('2514-10002', 2000000);
+  bank.cekSaldo();
+  bank.tarik(500000);
+  bank.cekSaldo();
+}</code></pre>
+            </div>
+
+            <button onclick="openModal('https://dartpad.dev/?id=babbd7d5018b78e861ed314941d3d088&run=true')">Run
+                Program</button>
+        </section>
+
+        <section>
+            <h2>📝 Ringkasan</h2>
+            <ul>
+                <li>Dart memiliki berbagai jenis constructor</li>
+                <li>Enkapsulasi melindungi data dengan private field (_)</li>
+                <li>Getter & setter memberikan kontrol akses yang aman</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        &copy; 2025 Marta saputra &bull; Tugas 2
+    </footer>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <iframe id="dartFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Reveal Animations
+        const sections = document.querySelectorAll("section");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(sec => observer.observe(sec));
+
+        // Modal Logic
+        function openModal(link) {
+            document.getElementById("modal").style.display = "block";
+            document.getElementById("dartFrame").src = link;
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+            document.getElementById("dartFrame").src = "";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function (e) {
+            if (e.target == document.getElementById("modal")) closeModal();
+        }
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.keyCode == 123) return false; // F12
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) return false; // Ctrl+Shift+I/J/C
+            if (e.ctrlKey && e.keyCode == 85) return false; // Ctrl+U
+            if (e.ctrlKey && e.keyCode == 83) return false; // Ctrl+S
+        };
+        document.onselectstart = function () { return false; };
+
+    </script>
+
+</body>
+
+</html>
