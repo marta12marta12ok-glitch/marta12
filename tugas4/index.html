@@ -1,150 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi OOP Dart - Marta Saputra</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f4f7f6;
+    margin:0;
+    padding:20px;
+    color:#333;
+    line-height:1.6;
+}
+.container {
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+.header {
+    border-left:6px solid #2f6fed;
+    padding: 30px 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: center;
+    margin-bottom:30px;
+}
+h1 {
+    color:#2f6fed;
+    font-size: clamp(2.2em, 6vw, 2.8em);
+    margin: 0;
+    line-height: 1.3;
+    font-weight: bold;
+}
+hr {
+    width: 60%;
+    max-width: 300px;
+    margin: 20px auto;
+    border: none;
+    height: 2px;
+    background-color: #2f6fed;
+}
+.biodata {
+    font-size: clamp(1.1em, 3vw, 1.4em);
+    line-height: 2;
+    color: #333;
+}
+h2 {
+    color:#4a4a4a;
+    font-size:1.6em;
+    border-bottom:2px solid #eee;
+    padding-bottom:10px;
+    margin-top:30px;
+    margin-bottom:15px;
+}
+p {
+    margin-bottom:1em;
+    font-size:1.05em;
+}
+iframe {
+    width:100%;
+    height:420px;
+    border-radius:8px;
+    margin-top:15px;
+    border:1px solid #ddd;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <h1>Materi OOP Dart</h1>
+    <hr>
+    <div class="biodata">
+        <p><strong>Nama:</strong> Marta Saputra</p>
+        <p><strong>NIM:</strong> 251410020</p>
+        <p><strong>Kelas:</strong> SI2A</p>
+    </div>
+</div>
+
 <section>
 <h2>1. Class & Object</h2>
 <p>Class adalah blueprint untuk membuat object, sedangkan object adalah hasil dari class.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=8ad39d7824653e51d75c020507223c83&run=true"
-width="100%" height="400">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=8ad39d7824653e51d75c020507223c83&run=true" width="100%" height="400"></iframe>
 </section>
-
 
 <section>
 <h2>2. Constructor</h2>
 <p>Constructor digunakan untuk menginisialisasi object saat dibuat.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=325cc803e47c13113566520436f24cde&run=true"
-width="100%" height="400">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=325cc803e47c13113566520436f24cde&run=true" width="100%" height="400"></iframe>
 </section>
-
 
 <section>
 <h2>3. Named Constructor</h2>
 <p>Constructor dengan nama tambahan agar bisa membuat object dengan cara berbeda.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=d99ed2ebd8843cf0851ea4e06459dc34&run=true"
-width="100%" height="400">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=d99ed2ebd8843cf0851ea4e06459dc34&run=true" width="100%" height="400"></iframe>
 </section>
-
 
 <section>
 <h2>4. Constant Constructor</h2>
 <p>Digunakan untuk membuat object yang tidak berubah (immutable).</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=95dbd760b80c2c4b84501c2072b0c406&run=true"
-width="100%" height="400">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=95dbd760b80c2c4b84501c2072b0c406&run=true" width="100%" height="400"></iframe>
 </section>
-
 
 <section>
 <h2>5. Initializer List</h2>
 <p>Digunakan untuk menginisialisasi nilai sebelum constructor dijalankan.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=fa3829ba5e0d112c93d931b33d2bda90&run=true"
-width="100%" height="400">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=fa3829ba5e0d112c93d931b33d2bda90&run=true" width="100%" height="400"></iframe>
 </section>
 
 <section>
 <h2>6. Enkapsulasi</h2>
 <p>Enkapsulasi adalah konsep untuk melindungi data dengan menggunakan akses terbatas (private) agar tidak bisa diakses langsung dari luar class.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=b937245617b61a8f46237ee306d4796c&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=b937245617b61a8f46237ee306d4796c&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>7. Getter</h2>
 <p>Getter digunakan untuk mengambil nilai dari variabel private secara aman.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=17b82a9c6094d141cfb34503987c3ac0&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=17b82a9c6094d141cfb34503987c3ac0&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>8. Setter</h2>
 <p>Setter digunakan untuk mengubah nilai variabel private dengan aturan tertentu.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=0ea677280fd48a923a2f63da7d6f2248&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=0ea677280fd48a923a2f63da7d6f2248&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>9. Validasi Data</h2>
 <p>Validasi digunakan untuk memastikan data yang dimasukkan sesuai aturan agar tidak terjadi kesalahan.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=9eff7a2ae446e71f9a567eaeb906cbdc&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=9eff7a2ae446e71f9a567eaeb906cbdc&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>10. Sistem Login</h2>
 <p>Sistem login digunakan untuk autentikasi pengguna dengan mencocokkan username dan password.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=2e91d4b9e4989f5ab084eaa59fddf0c7&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=2e91d4b9e4989f5ab084eaa59fddf0c7&run=true" width="100%" height="420"></iframe>
 </section>
 
 <section>
 <h2>11. Rekening Bank</h2>
 <p>Konsep class digunakan untuk membuat sistem sederhana seperti rekening bank dengan fitur saldo, deposit, dan penarikan.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=d94c68502bb9ca9dcc13935c88c610d5&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=d94c68502bb9ca9dcc13935c88c610d5&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>12. Studi Kasus Produk</h2>
 <p>Contoh penggunaan getter dan setter dalam pengelolaan data produk dengan validasi.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=a6d8c8c5a023710edd52f6d41c50da30&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=a6d8c8c5a023710edd52f6d41c50da30&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>13. Studi Kasus User</h2>
 <p>Penerapan OOP dalam sistem user dengan validasi data seperti username, password, dan email.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=728cc0dcf4f526e6df990c1fe31c904d&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=728cc0dcf4f526e6df990c1fe31c904d&run=true" width="100%" height="420"></iframe>
 </section>
-
 
 <section>
 <h2>14. Sistem Login & Ganti Password</h2>
 <p>Implementasi autentikasi login serta fitur perubahan password dengan validasi keamanan.</p>
-
-<iframe 
-src="https://dartpad.dev/embed-inline.html?id=e0944e7e332284b9bd3bc4b77599ffe4&run=true"
-width="100%" height="420">
-</iframe>
+<iframe src="https://dartpad.dev/embed-inline.html?id=e0944e7e332284b9bd3bc4b77599ffe4&run=true" width="100%" height="420"></iframe>
 </section>
+
+</div>
+</body>
+</html>
