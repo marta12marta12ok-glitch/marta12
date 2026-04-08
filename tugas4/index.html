@@ -1,164 +1,53 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OOP Report - Marta saputra</title>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet">
-
-    <style>
-        body { font-family: Inter, sans-serif; background:#0b1121; color:#f1f5f9; margin:0; }
-        header { text-align:center; padding:80px 20px; }
-        h1 { font-size:2.5rem; }
-        .container { max-width:900px; margin:auto; padding:20px; }
-        section { background:#141d33; padding:30px; border-radius:12px; margin-bottom:30px; }
-        h2 { color:#fff; }
-        p { color:#94a3b8; }
-        button { margin-top:10px; padding:10px 20px; cursor:pointer; }
-
-        .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); }
-        .modal-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:90%; height:80%; }
-        iframe { width:100%; height:100%; border:none; }
-    </style>
-</head>
-
-<body>
-
-<header>
-    <h1>Marta saputra</h1>
-    <p>NIM : 251410020 | KELAS : SI2A</p>
-</header>
-
-<div class="container">
-
 <section>
 <h2>1. Class & Object</h2>
 <p>Class adalah blueprint untuk membuat object, sedangkan object adalah hasil dari class.</p>
-<button onclick="openModal('https://dartpad.dev/8ad39d7824653e51d75c020507223c83')">Run</button>
+
+<iframe 
+src="https://dartpad.dev/embed-inline.html?id=8ad39d7824653e51d75c020507223c83&run=true"
+width="100%" height="400">
+</iframe>
 </section>
+
 
 <section>
 <h2>2. Constructor</h2>
 <p>Constructor digunakan untuk menginisialisasi object saat dibuat.</p>
-<button onclick="openModal('https://dartpad.dev/325cc803e47c13113566520436f24cde')">Run</button>
+
+<iframe 
+src="https://dartpad.dev/embed-inline.html?id=325cc803e47c13113566520436f24cde&run=true"
+width="100%" height="400">
+</iframe>
 </section>
+
 
 <section>
 <h2>3. Named Constructor</h2>
 <p>Constructor dengan nama tambahan agar bisa membuat object dengan cara berbeda.</p>
-<button onclick="openModal('https://dartpad.dev/d99ed2ebd8843cf0851ea4e06459dc34')">Run</button>
+
+<iframe 
+src="https://dartpad.dev/embed-inline.html?id=d99ed2ebd8843cf0851ea4e06459dc34&run=true"
+width="100%" height="400">
+</iframe>
 </section>
+
 
 <section>
 <h2>4. Constant Constructor</h2>
 <p>Digunakan untuk membuat object yang tidak berubah (immutable).</p>
-<button onclick="openModal('https://dartpad.dev/95dbd760b80c2c4b84501c2072b0c406')">Run</button>
+
+<iframe 
+src="https://dartpad.dev/embed-inline.html?id=95dbd760b80c2c4b84501c2072b0c406&run=true"
+width="100%" height="400">
+</iframe>
 </section>
+
 
 <section>
 <h2>5. Initializer List</h2>
 <p>Digunakan untuk menginisialisasi nilai sebelum constructor dijalankan.</p>
-<button onclick="openModal('https://dartpad.dev/fa3829ba5e0d112c93d931b33d2bda90')">Run</button>
-</section>
 
-<section>
-<h2>6. Materi 6</h2>
-<button onclick="openModal('https://dartpad.dev/b937245617b61a8f46237ee306d4796c')">Run</button>
-</section>
-
-<section>
-<h2>7. Materi 7</h2>
-<button onclick="openModal('https://dartpad.dev/17b82a9c6094d141cfb34503987c3ac0')">Run</button>
-</section>
-
-<section>
-<h2>8. Materi 8</h2>
-<button onclick="openModal('https://dartpad.dev/0ea677280fd48a923a2f63da7d6f2248')">Run</button>
-</section>
-
-<section>
-<h2>9. Materi 9</h2>
-<button onclick="openModal('https://dartpad.dev/9eff7a2ae446e71f9a567eaeb906cbdc')">Run</button>
-</section>
-
-<section>
-<h2>10. Materi 10</h2>
-<button onclick="openModal('https://dartpad.dev/2e91d4b9e4989f5ab084eaa59fddf0c7')">Run</button>
-</section>
-
-<section>
-<h2>11. Materi 11</h2>
-<button onclick="openModal('https://dartpad.dev/d94c68502bb9ca9dcc13935c88c610d5')">Run</button>
-</section>
-
-<section>
-<h2>12. Materi 12</h2>
-<button onclick="openModal('https://dartpad.dev/a6d8c8c5a023710edd52f6d41c50da30')">Run</button>
-</section>
-
-<section>
-<h2>13. Materi 13</h2>
-<button onclick="openModal('https://dartpad.dev/728cc0dcf4f526e6df990c1fe31c904d')">Run</button>
-</section>
-
-<section>
-<h2>14. Materi 14</h2>
-<button onclick="openModal('https://dartpad.dev/e0944e7e332284b9bd3bc4b77599ffe4')">Run</button>
-</section>
-
-</div>
-
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <iframe id="frame"></iframe>
-    </div>
-</div>
-
-<script>
-function openModal(link){
-    document.getElementById('modal').style.display='block';
-    document.getElementById('frame').src=link;
-}
-
-window.onclick=function(e){
-    if(e.target==document.getElementById('modal')){
-        document.getElementById('modal').style.display='none';
-    }
-}
-</script>
-
-</body>
-</html>
-<section>
-<h2>6. Enkapsulasi</h2>
-<p>Enkapsulasi adalah konsep untuk melindungi data dengan menggunakan akses terbatas (private) agar tidak bisa diakses langsung dari luar class.</p>
-<button onclick="openModal('https://dartpad.dev/b937245617b61a8f46237ee306d4796c')">Run</button>
-</section>
-
-<section>
-<h2>7. Getter</h2>
-<p>Getter digunakan untuk mengambil nilai dari variabel private secara aman.</p>
-<button onclick="openModal('https://dartpad.dev/17b82a9c6094d141cfb34503987c3ac0')">Run</button>
-</section>
-
-<section>
-<h2>8. Setter</h2>
-<p>Setter digunakan untuk mengubah nilai variabel private dengan aturan tertentu.</p>
-<button onclick="openModal('https://dartpad.dev/0ea677280fd48a923a2f63da7d6f2248')">Run</button>
-</section>
-
-<section>
-<h2>9. Validasi Data</h2>
-<p>Validasi digunakan untuk memastikan data yang dimasukkan sesuai aturan agar tidak terjadi kesalahan.</p>
-<button onclick="openModal('https://dartpad.dev/9eff7a2ae446e71f9a567eaeb906cbdc')">Run</button>
-</section>
-
-<section>
-<h2>10. Sistem Login</h2>
-<p>Sistem login digunakan untuk autentikasi pengguna dengan mencocokkan username dan password.</p>
-<button onclick="openModal('https://dartpad.dev/2e91d4b9e4989f5ab084eaa59fddf0c7')">Run</button>
+<iframe 
+src="https://dartpad.dev/embed-inline.html?id=fa3829ba5e0d112c93d931b33d2bda90&run=true"
+width="100%" height="400">
+</iframe>
 </section>
