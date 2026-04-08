@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Materi Polimorfisme & Abstraksi - Marta Saputra</title>
+<title>Polimorfisme dan Abstraksi dalam Dart</title>
 
 <style>
 body {
@@ -12,6 +12,7 @@ body {
     margin:0;
     padding:20px;
     color:#333;
+    line-height:1.6;
 }
 .container {
     max-width:900px;
@@ -19,56 +20,165 @@ body {
     background:white;
     padding:30px;
     border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
+
+.header {
+    border-left:6px solid #2f6fed;
+    padding-left:15px;
+    margin-bottom:30px;
+}
+
 h1 {
-    text-align:center;
     color:#2f6fed;
+    font-size:2.5em;
+    margin-bottom:10px;
 }
 h2 {
+    color:#4a4a4a;
+    font-size:1.8em;
     border-bottom:2px solid #eee;
+    padding-bottom:10px;
+    margin-top:30px;
+    margin-bottom:15px;
 }
+h3 {
+    color:#5a5a5a;
+    font-size:1.4em;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+p {
+    margin-bottom:1em;
+}
+
 .code-box {
-    background:#2d2d2d;
-    color:#fff;
-    padding:15px;
+    background:#2d2d2d; /* Darcula theme for code */
+    color:#f8f8f2;
+    padding:20px;
     border-radius:8px;
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word; /* Ensure long lines wrap */
+    margin-top:15px;
+    margin-bottom:20px;
+    overflow-x: auto; /* Enable horizontal scrolling for wide code */
+    font-size:0.95em;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
 }
+
 .button {
     background:#2f6fed;
     color:white;
     border:none;
-    padding:10px;
+    padding:10px 20px;
     border-radius:6px;
     cursor:pointer;
+    margin-top:10px;
+    font-size:1em;
+    transition: background-color 0.3s ease;
 }
-.section {
-    margin-bottom:30px;
+.button:hover {
+    background:#1c5adb;
 }
+
 iframe {
     width:100%;
-    height:420px;
-    display:none;
+    height:400px;
+    border-radius:8px;
+    margin-top:15px;
+    border:1px solid #ddd;
+    display:none; /* Hidden by default */
 }
+
+.section {
+    margin-bottom:40px;
+    padding-bottom:20px;
+    border-bottom:1px dashed #e0e0e0;
+}
+.section:last-of-type {
+    border-bottom:none;
+    margin-bottom:0;
+}
+
+.note {
+    background:#e6f7ff;
+    border-left:4px solid #1890ff;
+    padding:10px 15px;
+    margin:15px 0;
+    border-radius:4px;
+    color:#0050b3;
+}
+
+.summary-box {
+    background:#f0f8ff;
+    border-left:5px solid #2f6fed;
+    padding:20px;
+    border-radius:8px;
+    margin-top:30px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+.summary-box h2 {
+    color:#2f6fed;
+    border-bottom:none;
+    padding-bottom:0;
+    margin-top:0;
+}
+.summary-box ul {
+    list-style-type: disc;
+    margin-left:20px;
+}
+.summary-box li {
+    margin-bottom:0.5em;
+}
+
 </style>
 
 <script>
 function runDart(id, link){
+    // Sembunyikan semua iframe dan hentikan yang sedang berjalan
     document.querySelectorAll("iframe").forEach(f => {
         f.style.display = "none";
         f.src = "";
     });
 
+    // Tampilkan iframe yang dipilih
     var frame = document.getElementById(id);
-    var random = Math.floor(Math.random() * 100000);
-
     frame.style.display = "block";
-    frame.src = link + "&rand=" + random;
+    frame.src = link;
 
+    // Tunggu sampai DartPad selesai load, baru auto run
     frame.onload = function(){
         frame.onload = null;
-        frame.src = link + "&run=true&rand=" + random;
+        frame.src = link + "&run=true";
     };
 }
+</script>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header" style="padding: 30px 20px; border-radius: 12px; background: #ffffff; border-left: 6px solid #2f6fed; text-align: center;">
+    
+    <!-- JUDUL UTAMA -->
+    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 0; line-height: 1.3; font-weight: bold;">Polimorfisme</h1>
+    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 5px 0; line-height: 1.3; font-weight: bold;">&</h1>
+    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 0; line-height: 1.3; font-weight: bold;">Abstraksi</h1>
+
+    <!-- GARIS PEMBATAS -->
+    <hr style="width: 60%; max-width: 300px; margin: 20px auto; border: none; height: 2px; background-color: #2f6fed;">
+
+    <!-- DATA DIRI -->
+    <div style="font-size: clamp(1.1em, 3vw, 1.4em); line-height: 2; color: #333;">
+        <p>Marta Saputra</p>
+        <p>251410020</p>
+        <p>SI2A</p>
+    </div>
+
+</div> 
+
 </script>
 
 </head>
@@ -79,35 +189,73 @@ function runDart(id, link){
 
 <!-- 1 -->
 <div class="section">
-<h2>1. Class Hewan</h2>
+<h2>1. Class Hewan (polimorfisme)</h2>
 
 <div class="code-box">
 <pre><code>
+// ==========================================
 // Nama  : Marta Saputra
 // NIM   : 251410020
 // Kelas : SI2A
+// ==========================================
 
 abstract class Hewan {
   String nama = "Hewan";
+
   void bersuara();
 }
 
 class Kucing extends Hewan {
-  Kucing() { nama = "Kucing"; }
-  void bersuara() => print('$nama: Meong');
+  Kucing() {
+    nama = "Kucing";
+  }
+
+  @override
+  void bersuara() {
+    print('$nama: Meong');
+  }
 }
 
 class Anjing extends Hewan {
-  Anjing() { nama = "Anjing"; }
-  void bersuara() => print('$nama: Guk guk');
+  Anjing() {
+    nama = "Anjing";
+  }
+
+  @override
+  void bersuara() {
+    print('$nama: Guk guk');
+  }
+}
+
+class Burung extends Hewan {
+  Burung() {
+    nama = "Burung";
+  }
+
+  @override
+  void bersuara() {
+    print('$nama: Cuit cuit');
+  }
 }
 
 void main() {
-  List<Hewan> data = [Kucing(), Anjing()];
-  for (var h in data) {
+print("=== Tugas Polimorfisme & Abstraksi ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------------");
+
+  List daftarHewan = [
+    Kucing(),
+    Anjing(),
+    Burung()
+  ];
+
+  for (var h in daftarHewan) {
     h.bersuara();
   }
 }
+
 </code></pre>
 </div>
 
@@ -117,23 +265,52 @@ void main() {
 
 <!-- 2 -->
 <div class="section">
-<h2>2. Class Bentuk</h2>
+<h2>2. Class Bentuk (polimorfisme)</h2>
 
 <div class="code-box">
 <pre><code>
+// ==========================================
 // Nama  : Marta Saputra
+// NIM   : 251410020
+// Kelas : SI2A
+// ==========================================
 
 class Bentuk {
-  void gambar() => print('Bentuk');
+  void gambar() {
+    print('Menggambar bentuk');
+  }
 }
 
 class Lingkaran extends Bentuk {
-  void gambar() => print('Lingkaran');
+  @override
+  void gambar() {
+    print('Menggambar lingkaran');
+  }
+}
+
+class Persegi extends Bentuk {
+  @override
+  void gambar() {
+    print('Menggambar persegi');
+  }
 }
 
 void main() {
-  Bentuk b = Lingkaran();
-  b.gambar();
+print("=== Polimorfisme Bentuk ===");
+  // TAMBAHKAN INI
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------------------");
+
+  List daftarBentuk = [
+    Lingkaran(),
+    Persegi()
+  ];
+
+  for (var bentuk in daftarBentuk) {
+    bentuk.gambar();
+  }
 }
 </code></pre>
 </div>
@@ -144,26 +321,44 @@ void main() {
 
 <!-- 3 -->
 <div class="section">
-<h2>3. Operator is & as</h2>
+<h2>3. Class Kendaraan (Operator 'is' & 'as')</h2>
 
 <div class="code-box">
 <pre><code>
+// ==========================================
 // Nama  : Marta Saputra
+// NIM   : 251410020
+// Kelas : SI2A
+// ==========================================
 
 class Kendaraan {}
+
 class Mobil extends Kendaraan {
-  void klakson() => print('Tin!');
+  void klakson() {
+    print('Tin!');
+  }
 }
 
 void main() {
+print("=== Operator is dan as ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------------");
+
   Kendaraan k = Mobil();
 
+  // Mengecek tipe dengan "is"
   if (k is Mobil) {
+    print("Cek tipe: k adalah Mobil");
     k.klakson();
   }
 
-  (k as Mobil).klakson();
+  // Safe casting dengan "as?"
+  print("Safe casting:");
+  (k as Mobil?)?.klakson();
 }
+
 </code></pre>
 </div>
 
@@ -173,23 +368,52 @@ void main() {
 
 <!-- 4 -->
 <div class="section">
-<h2>4. Abstract Kendaraan</h2>
+<h2>4. Abstract Class Kendaraan</h2>
 
 <div class="code-box">
 <pre><code>
+// ==========================================
 // Nama  : Marta Saputra
+// NIM   : 251410020
+// Kelas : SI2A
+// ==========================================
 
 abstract class Kendaraan {
+  String merk;
+
+  // Constructor
+  Kendaraan(this.merk);
+
+  // Method abstract
   void start();
+
+  // Method concrete
+  void stop() {
+    print('Kendaraan berhenti');
+  }
 }
 
 class Mobil extends Kendaraan {
-  void start() => print('Mobil nyala');
+  // Constructor turunan
+  Mobil(String merk) : super(merk);
+
+  @override
+  void start() {
+    print('Mobil $merk menyala');
+  }
 }
 
 void main() {
-  Mobil m = Mobil();
-  m.start();
+print("=== Abstract Class Kendaraan ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------------------");
+
+  Mobil mobil = Mobil("Toyota");
+
+  mobil.start();
+  mobil.stop();
 }
 </code></pre>
 </div>
@@ -200,23 +424,52 @@ void main() {
 
 <!-- 5 -->
 <div class="section">
-<h2>5. Class Alat Musik</h2>
+<h2>5. Class Alat Musik (Abstraksi)</h2>
 
 <div class="code-box">
 <pre><code>
+// ==========================================
 // Nama  : Marta Saputra
+// NIM   : 251410020
+// Kelas : SI2A
+// ==========================================
 
 abstract class AlatMusik {
+  String nama;
+
+  // Constructor
+  AlatMusik(this.nama);
+
+  // Method abstract
   void mainkan();
+
+  // Method concrete
+  void info() {
+    print('Ini adalah alat musik $nama');
+  }
 }
 
 class Gitar extends AlatMusik {
-  void mainkan() => print('Petik gitar');
+  // Constructor turunan
+  Gitar(String nama) : super(nama);
+
+  @override
+  void mainkan() {
+    print('Gitar $nama berbunyi: Jreng jreng...');
+  }
 }
 
 void main() {
-  Gitar g = Gitar();
-  g.mainkan();
+print("=== Abstract Class Alat Musik ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------------------");
+
+  Gitar gitar = Gitar("Akustik");
+
+  gitar.info();
+  gitar.mainkan();
 }
 </code></pre>
 </div>
@@ -232,18 +485,23 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : SI. 2A
+// Kelas : SI2A
+// ==========================================
 
+// Abstract Class
 abstract class Kendaraan {
   void jalan();
 }
 
+// Interface
 abstract class Terbang {
   void terbang();
 }
 
+// Class Pesawat
 class Pesawat extends Kendaraan implements Terbang {
   @override
   void jalan() {
@@ -257,9 +515,16 @@ class Pesawat extends Kendaraan implements Terbang {
 }
 
 void main() {
-  Pesawat p = Pesawat();
-  p.jalan();
-  p.terbang();
+print("=== OOP Dart ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------");
+
+  Pesawat pesawat = Pesawat();
+
+  pesawat.jalan();
+  pesawat.terbang();
 }
 </code></pre>
 </div>
@@ -270,26 +535,36 @@ void main() {
 
 <!-- 7 -->
 <div class="section">
-<h2>7. Static Method</h2>
+<h2>7. Class Mathutils (Static)</h2>
 <p>Static digunakan untuk variabel dan method yang dapat diakses tanpa membuat objek.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : SI. 2A
+// Kelas : SI2A
+// ==========================================
 
 class MathUtils {
-  static double pi = 3.14;
+// Static variable
+static double pi = 3.14;
 
-  static int tambah(int a, int b) {
-    return a + b;
-  }
+// Static method
+static int add(int a, int b) {
+return a + b;
+}
 }
 
 void main() {
-  print(MathUtils.pi);
-  print(MathUtils.tambah(5, 10));
+print("=== Static Members dan Method ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("---------------------------------");
+
+print('Nilai pi : ${MathUtils.pi}');
+print('Result   : ${MathUtils.add(10,20)}');
 }
 </code></pre>
 </div>
@@ -300,39 +575,50 @@ void main() {
 
 <!-- 8 -->
 <div class="section">
-<h2>8. Metode Pembayaran (Interface)</h2>
+<h2>8. Class MetodePembayaran (Interface)</h2>
 <p>Interface digunakan untuk membuat berbagai metode pembayaran dengan implementasi berbeda.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : SI. 2A
+// Kelas : SI2A
+// ==========================================
 
+// Interface
 abstract class MetodePembayaran {
-  void bayar(double jumlah);
+void bayar(double jumlah);
 }
 
+// Class Kartu Kredit
 class KartuKredit implements MetodePembayaran {
-  @override
-  void bayar(double jumlah) {
-    print('Bayar Rp$jumlah pakai Kartu Kredit');
-  }
+@override
+void bayar(double jumlah) {
+print('Membayar Rp$jumlah menggunakan Kartu Kredit');
+}
 }
 
+// Class E-Wallet
 class EWallet implements MetodePembayaran {
-  @override
-  void bayar(double jumlah) {
-    print('Bayar Rp$jumlah pakai E-Wallet');
-  }
+@override
+void bayar(double jumlah) {
+print('Membayar Rp$jumlah menggunakan E-Wallet');
+}
 }
 
 void main() {
-  KartuKredit k = KartuKredit();
-  EWallet e = EWallet();
+print("=== Metode Pembayaran ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("-------------------------");
 
-  k.bayar(50000);
-  e.bayar(25000);
+KartuKredit kartu = KartuKredit();
+EWallet ewallet = EWallet();
+
+kartu.bayar(50000);
+ewallet.bayar(25000);
 }
 </code></pre>
 </div>
@@ -343,35 +629,84 @@ void main() {
 
 <!-- 9 -->
 <div class="section">
-<h2>9. Bentuk Geometri</h2>
+<h2>9. Class Bentuk Geometri</h2>
 <p>Menggunakan abstraksi untuk menghitung luas dan keliling berbagai bentuk.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : SI. 2A
+// Kelas : SI2A
+// ==========================================
 
 abstract class Bentuk {
-  double luas();
-  double keliling();
+double hitungLuas();
+double hitungKeliling();
+
+void info() {
+print('Luas: ${hitungLuas()}, Keliling: ${hitungKeliling()}');
+}
 }
 
+// Class Persegi
 class Persegi extends Bentuk {
-  double sisi;
-  Persegi(this.sisi);
+double sisi;
 
-  @override
-  double luas() => sisi * sisi;
+Persegi(this.sisi);
 
-  @override
-  double keliling() => 4 * sisi;
+@override
+double hitungLuas() {
+return sisi * sisi;
+}
+
+@override
+double hitungKeliling() {
+return 4 * sisi;
+}
+
+@override
+void info() {
+print(
+'Persegi dengan sisi $sisi memiliki luas ${hitungLuas()} dan keliling ${hitungKeliling()}');
+}
+}
+
+// Class Lingkaran
+class Lingkaran extends Bentuk {
+double radius;
+
+Lingkaran(this.radius);
+
+@override
+double hitungLuas() {
+return 3.14 * radius * radius;
+}
+
+@override
+double hitungKeliling() {
+return 2 * 3.14 * radius;
+}
+
+@override
+void info() {
+print(
+'Lingkaran dengan radius $radius memiliki luas ${hitungLuas()} dan keliling ${hitungKeliling()}');
+}
 }
 
 void main() {
-  Persegi p = Persegi(4);
-  print(p.luas());
-  print(p.keliling());
+print("=== Sistem Bentuk Geometri ===");
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+print("--------------------------------");
+
+Persegi persegi = Persegi(4);
+Lingkaran lingkaran = Lingkaran(7);
+
+persegi.info();
+lingkaran.info();
 }
 </code></pre>
 </div>
@@ -382,43 +717,59 @@ void main() {
 
 <!-- 10 -->
 <div class="section">
-<h2>10. Pekerja (Abstraksi & Polimorfisme)</h2>
+<h2>10. Class Pekerja (Bonus 1)</h2>
 <p>Contoh class abstrak dengan beberapa turunan yang memiliki perilaku berbeda.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : SI. 2A
+// Kelas : SI2A
+// ==========================================
+/// Bonus 1
 
 abstract class Pekerja {
-  void bekerja();
+String nama;
+
+Pekerja(this.nama);
+
+void bekerja();
+
+void info() {
+print("Nama: $nama");
+}
 }
 
 class Programmer extends Pekerja {
-  @override
-  void bekerja() {
-    print("Programmer sedang coding");
-  }
-}
+Programmer(String nama) : super(nama);
 
-class Dokter extends Pekerja {
-  @override
-  void bekerja() {
-    print("Dokter sedang mengobati pasien");
-  }
+@override
+void bekerja() {
+print("$nama bekerja sebagai Programmer");
+}
 }
 
 void main() {
-  List<Pekerja> daftar = [
-    Programmer(),
-    Dokter()
-  ];
+print("=== Class Pekerja ===");
+  // TAMBAHKAN INI
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+  print("--------------------------------");
 
-  for (var p in daftar) {
-    p.bekerja();
-  }
+  Programmer p = Programmer("Andi");
+  p.info();
+  p.bekerja();
 }
+
+
+/*
+Hasil Output:
+Nama: Andi
+Andi bekerja sebagai Programmer
+*/
+
 </code></pre>
 </div>
 
@@ -427,41 +778,78 @@ void main() {
 </div>
 
 <div class="section">
-<h2>11. Multi Class Pekerja</h2>
+<h2>11. Multi Class Pekerja (Bonus 2)</h2>
 
 <p>Polimorfisme digunakan saat satu parent class memiliki banyak turunan dengan perilaku berbeda.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
 // Kelas : SI2A
+// ==========================================
+/// Bonus 2
 
 abstract class Pekerja {
-  void bekerja();
+String nama;
+Pekerja(this.nama);
+
+void bekerja();
 }
 
 class Programmer extends Pekerja {
-  @override
-  void bekerja() {
-    print("Programmer sedang coding");
-  }
+Programmer(String nama) : super(nama);
+
+@override
+void bekerja() {
+print("$nama adalah Programmer");
+}
 }
 
 class Dokter extends Pekerja {
-  @override
-  void bekerja() {
-    print("Dokter sedang mengobati pasien");
-  }
+Dokter(String nama) : super(nama);
+
+@override
+void bekerja() {
+print("$nama adalah Dokter");
 }
+}
+
+class Guru extends Pekerja {
+Guru(String nama) : super(nama);
+
+@override
+void bekerja() {
+print("$nama adalah Guru");
+}
+}
+
 
 void main() {
-  List<Pekerja> daftar = [Programmer(), Dokter()];
+print("=== Multi Class Pekerja ===");
+  // TAMBAHKAN INI
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+  print("--------------------------------");
 
-  for (var p in daftar) {
-    p.bekerja();
-  }
+  Programmer p = Programmer("Andi");
+  Dokter d = Dokter("Budi");
+  Guru g = Guru("Citra");
+
+  p.bekerja();
+  d.bekerja();
+  g.bekerja();
 }
+
+/*
+Hasil Output:
+Andi adalah Programmer
+Budi adalah Dokter
+Citra adalah Guru
+*/
+
 </code></pre>
 </div>
 
@@ -470,86 +858,150 @@ void main() {
 </div>
 
 <div class="section">
-<h2>12. Polimorfisme List</h2>
+<h2>12. Polimorfisme List (Bonus 3)</h2>
 
 <p>Polimorfisme memungkinkan banyak objek diperlakukan sebagai tipe yang sama.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
 // Kelas : SI2A
+// ==========================================
+/// Bonus 3
 
-class Hewan {
-  void suara() {
-    print("Suara hewan");
-  }
+abstract class Pekerja {
+String nama;
+Pekerja(this.nama);
+
+void bekerja();
 }
 
-class Kucing extends Hewan {
-  @override
-  void suara() {
-    print("Meong");
-  }
+class Programmer extends Pekerja {
+Programmer(String nama) : super(nama);
+
+@override
+void bekerja() {
+print("$nama sedang coding");
+}
 }
 
-class Anjing extends Hewan {
-  @override
-  void suara() {
-    print("Guk guk");
-  }
+class Dokter extends Pekerja {
+Dokter(String nama) : super(nama);
+
+@override
+void bekerja() {
+print("$nama sedang mengobati pasien");
+}
+}
+
+class Guru extends Pekerja {
+Guru(String nama) : super(nama);
+
+@override
+void bekerja() {
+print("$nama sedang mengajar");
+}
 }
 
 void main() {
-  List<Hewan> list = [Kucing(), Anjing()];
+print("=== Polimorfisme List ===");
+  // TAMBAHKAN INI
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+  print("--------------------------------");
 
-  for (var h in list) {
-    h.suara();
+  List daftar = [
+    Programmer("Andi"),
+    Dokter("Budi"),
+    Guru("Citra"),
+  ];
+
+  for(var p in daftar) {
+    p.bekerja();
   }
 }
+
+
+/*
+Hasil Output:
+Andi sedang coding
+Budi sedang mengobati pasien
+Citra sedang mengajar
+*/
 </code></pre>
 </div>
 
-<button class="button" onclick="runDart('f12','https://dartpad.dev/embed-inline.html?id=a6d8c8c5a023710edd52f6d41c50da30&run=true')">Run</button>
-<iframe id="f12" src="https://dartpad.dev/embed-inline.html?id=a6d8c8c5a023710edd52f6d41c50da30&run=true"></iframe>
+<button class="button" onclick="runDart('f12','https://dartpad.dev/embed-inline.html?id=7b4b14667461bae0e2ed53da5dbc0cbc&run=true')">Run</button>
+<iframe id="f12" src="https://dartpad.dev/embed-inline.html?id=7b4b14667461bae0e2ed53da5dbc0cbc&run=true"></iframe>
 </div>
 
 <div class="section">
-<h2>13. Multiple Interface</h2>
+<h2>13. Multiple Interface (Bonus 4 )</h2>
 
 <p>Interface digunakan untuk menerapkan lebih dari satu perilaku dalam satu class.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
 // Kelas : SI2A
+// ==========================================
+/// Bonus 4
 
-abstract class Terbang {
-  void terbang();
+abstract class Komputer {
+void menjalankanProgram();
 }
 
-abstract class Jalan {
-  void jalan();
+abstract class Kamera {
+void ambilFoto();
 }
 
-class Pesawat implements Terbang, Jalan {
-  @override
-  void terbang() {
-    print("Pesawat terbang");
-  }
+abstract class Telepon {
+void menelepon();
+}
 
-  @override
-  void jalan() {
-    print("Pesawat bergerak di landasan");
-  }
+class Tablet implements Komputer, Kamera, Telepon {
+@override
+void menjalankanProgram() {
+print("Tablet menjalankan program");
+}
+
+@override
+void ambilFoto() {
+print("Tablet mengambil foto");
+}
+
+@override
+void menelepon() {
+print("Tablet menelepon");
+}
 }
 
 void main() {
-  Pesawat p = Pesawat();
-  p.terbang();
-  p.jalan();
+print("=== Multiple Interface ===");
+  // TAMBAHKAN INI
+print("Nama  : Marta Saputra");
+print("NIM   : 251410020");
+print("Kelas : SI2A");
+  print("--------------------------------");
+
+  Tablet tablet = Tablet();
+  tablet.menjalankanProgram();
+  tablet.ambilFoto();
+  tablet.menelepon();
 }
+
+
+/*
+Hasil Output:
+Tablet menjalankan program
+Tablet mengambil foto
+Tablet menelepon
+*/
 </code></pre>
 </div>
 
@@ -558,25 +1010,87 @@ void main() {
 </div>
 
 <div class="section">
-<h2>14. Utility Math</h2>
+<h2>14. Utility Math (Bonus 5)</h2>
 
 <p>Static method digunakan untuk fungsi yang tidak memerlukan objek.</p>
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta
+// ==========================================
+// Nama  : Marta Saputra
 // NIM   : 251410020
 // Kelas : SI2A
+// ==========================================
+/// Bonus 5
 
-class MathUtil {
-  static int tambah(int a, int b) => a + b;
-  static int kali(int a, int b) => a * b;
+import 'dart:math';
+
+class MathUtils {
+
+  static Random rand = Random(1);
+
+  static int faktorial(int n) {
+    if(n <= 1) return 1;
+    return n * faktorial(n-1);
+  }
+
+  static bool cekPrima(int n) {
+    if(n <= 1) return false;
+    for(int i = 2; i <= sqrt(n); i++) {
+      if(n % i == 0) return false;
+    }
+    return true;
+  }
+
+  static double pembulatan(double angka, int desimal) {
+    double scale = pow(10, desimal).toDouble();
+    return (angka * scale).round() / scale;
+  }
+
+  static int randomInt(int min, int max) {
+    return min + rand.nextInt(max - min + 1);
+  }
+
+  static double rataRata(List list) {
+    int total = list.reduce((a, b) => a + b);
+    return total / list.length;
+  }
+
+  static double median(List list) {
+    List sorted = List.from(list)..sort();
+    int n = sorted.length;
+
+    if(n % 2 == 0) {
+      return (sorted[n ~/ 2 - 1] + sorted[n ~/ 2]) / 2;
+    } else {
+      return sorted[n ~/ 2].toDouble();
+    }
+  }
 }
 
 void main() {
-  print(MathUtil.tambah(5, 3));
-  print(MathUtil.kali(4, 2));
+  print("=== Utility Math ===");
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A");
+  print("--------------------------------");
+
+  print("Faktorial 5 = ${MathUtils.faktorial(5)}");
+  print("Prima 7 = ${MathUtils.cekPrima(7)}");
+  print("Pembulatan = ${MathUtils.pembulatan(3.14159, 2)}");
+  print("Contoh angka = ${MathUtils.randomInt(1, 10)}");
+  print("Rata-rata = ${MathUtils.rataRata([10, 20, 30, 40, 50])}");
+  print("Median = ${MathUtils.median([10, 20, 30, 40, 50])}");
 }
+/*
+Hasil Output:
+Faktorial 5 = 120
+Prima 7 = true
+Pembulatan = 3.14
+contoh angka = 3
+Rata-rata = 30
+Median = 30
+*/
 </code></pre>
 </div>
 
