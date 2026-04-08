@@ -365,16 +365,37 @@
             <div class="code-container">
                 <div class="code-header">📌 CONTOH: CLASS BUKU</div>
                 <pre><code>// Nama   : Marta saputra
-// Nim    : 251410020
-// Kelas  : SI2A
-class Buku {
-  String judul;
-  Buku(this.judul);
+// Nama  : Marta Saputra
+// NIM   : 251410020
+// Kelas : SI2A
+
+// Parent class
+class Hewan {
+  String nama;
+
+  Hewan(this.nama);
+
+  void bersuara() {
+    print('$nama bersuara...');
+  }
 }
 
+// Child class (Inheritance)
+class Kucing extends Hewan {
+  Kucing(String nama) : super(nama);
+
+  @override
+  void bersuara() {
+    print('$nama berkata: Meong');
+  }
+}
+
+// Main program
 void main() {
-  var buku1 = Buku("Belajar Dart");
-  print(buku1.judul);
+  Kucing kucing1 = Kucing('Kitty');
+
+  kucing1.bersuara();
+}
 }</code></pre>
             </div>
 
