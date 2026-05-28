@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXTENSION METHODS - MARTA SAPUTRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FF7E5F 0%, #FEB47B 30%, #FFE0B5 60%, #FFF5E6 100%);
+            color: #4a3728;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Awan pagi */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1000px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .cloud1 {
+            width: 200px;
+            height: 80px;
+            top: 10%;
+            left: -50px;
+            animation: floatCloud 25s linear infinite;
+        }
+
+        .cloud2 {
+            width: 300px;
+            height: 100px;
+            top: 20%;
+            right: -100px;
+            animation: floatCloud 35s linear infinite reverse;
+        }
+
+        .cloud3 {
+            width: 150px;
+            height: 60px;
+            bottom: 15%;
+            left: 20%;
+            animation: floatCloud 20s linear infinite;
+        }
+
+        .cloud4 {
+            width: 250px;
+            height: 85px;
+            bottom: 30%;
+            right: 10%;
+            animation: floatCloud 30s linear infinite reverse;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .cloud::before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 20px;
+        }
+
+        .cloud::after {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            left: 70px;
+        }
+
+        @keyframes floatCloud {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(100vw + 200px)); }
+        }
+
+        /* Matahari pagi */
+        .sun {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #FFD700, #FFA500, #FF7E5F);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 165, 0, 0.6), 0 0 100px rgba(255, 215, 0, 0.4);
+            animation: sunGlow 3s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes sunGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 50px rgba(255, 165, 0, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 0 80px rgba(255, 165, 0, 0.9); }
+        }
+
+        /* Sinar matahari */
+        .sun-rays {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sun-rays::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 160px;
+            height: 160px;
+            background: repeating-conic-gradient(from 0deg, rgba(255,215,0,0.3) 0deg 15deg, transparent 15deg 30deg);
+            border-radius: 50%;
+            animation: rotateRays 20s linear infinite;
+        }
+
+        @keyframes rotateRays {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Background gradasi pagi */
+        .morning-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 70% 20%, rgba(255, 200, 100, 0.15), transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(145deg, rgba(255, 200, 150, 0.95), rgba(255, 180, 120, 0.95));
+            border-bottom: 2px solid #FF8C42;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+        }
+
+        header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #D2691E, #FF8C42, #FFB347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', monospace;
+        }
+
+        header p {
+            color: #8B4513;
+            margin-top: 15px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-box {
+            background: linear-gradient(145deg, rgba(255, 220, 180, 0.95), rgba(255, 200, 150, 0.95));
+            border: 1px solid #FF8C42;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(255, 140, 66, 0.2);
+        }
+
+        .intro-box h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', monospace;
+            color: #D2691E;
+        }
+
+        .intro-box p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #5C3A21;
+        }
+
+        .daftar-isi {
+            background: rgba(255, 220, 180, 0.8);
+            border: 1px solid #FF8C42;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .daftar-isi a {
+            color: #8B4513;
+            text-decoration: none;
+            padding: 8px 18px;
+            border: 1px solid #FF8C42;
+            border-radius: 30px;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            font-weight: 500;
+            background: rgba(255, 245, 235, 0.6);
+        }
+
+        .daftar-isi a:hover {
+            background: #FF8C42;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 140, 66, 0.4);
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(255, 245, 235, 0.95), rgba(255, 235, 215, 0.95));
+            border: 1px solid #FFB347;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 140, 66, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 140, 66, 0.3);
+            border-color: #FF8C42;
+        }
+
+        .card h2 {
+            color: #D2691E;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            font-family: 'Orbitron', monospace;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card p {
+            color: #5C3A21;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 140, 66, 0.2);
+            border: 1px solid #FF8C42;
+            color: #D2691E;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: normal;
+            margin-left: 10px;
+        }
+
+        .code-container {
+            background: #2D1B0E;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 1px solid #FFB347;
+        }
+
+        .code-header {
+            background: #4A2A18;
+            padding: 10px 15px;
+            border-bottom: 1px solid #FFB347;
+            font-size: 0.85em;
+            color: #FFD699;
+            font-family: monospace;
+        }
+
+        pre {
+            background: #2D1B0E;
+            color: #FFD699;
+            padding: 20px;
+            overflow-x: auto;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #FF8C42, #FFB347);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 140, 66, 0.6);
+            background: linear-gradient(135deg, #FF7B2C, #FFA559);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            width: 95%;
+            height: 95%;
+            background: #FFF5E6;
+            border: 2px solid #FF8C42;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 140, 66, 0.5);
+        }
+
+        .modal-header {
+            position: absolute;
+            top: -45px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #FF8C42;
+        }
+
+        .modal-title {
+            background: #FFF5E6;
+            padding: 8px 20px;
+            border: 2px solid #FF8C42;
+            border-radius: 30px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9em;
+            color: #D2691E;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            background: #FF8C42;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            box-shadow: 0 0 20px #FF8C42;
+        }
+
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 18px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(145deg, rgba(255, 200, 150, 0.95), rgba(255, 180, 120, 0.95));
+            border-top: 2px solid #FF8C42;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            color: #8B4513;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding: 5px 0;
+            color: #5C3A21;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .card h2 { font-size: 1.3em; }
+            .daftar-isi a { padding: 5px 12px; font-size: 0.75em; }
+            .sun { width: 60px; height: 60px; top: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Elemen tema pagi/sunrise -->
+    <div class="clouds">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        <div class="cloud cloud4"></div>
+    </div>
+    <div class="sun"></div>
+    <div class="sun-rays"></div>
+    <div class="morning-bg"></div>
+
+    <header>
+        <h1>🌅 EXTENSION METHODS 🌅</h1>
+        <p>MARTA SAPUTRA | NIM: 251410020 | KELAS: SI2A</p>
+    </header>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="modalTitle">Dart Extension Methods</span>
+                <div class="modal-close" onclick="closeModal()">×</div>
+            </div>
+            <iframe class="modal-iframe" id="modalIframe" src="about:blank" allow="fullscreen"></iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-box">
+            <h2>☀️ EXTENSION METHODS DI DART ☀️</h2>
+            <p><strong>Extension Methods</strong> adalah fitur Dart yang memungkinkan kita menambahkan fungsi baru ke tipe data yang sudah ada (baik bawaan maupun custom) tanpa mengubah kode aslinya.</p>
+            <p>✨ <strong>Sintaks:</strong> extension NamaExtension on TipeData { // method baru }</p>
+        </div>
+
+        
+
+        <!-- 1. BUILDER PATTERN -->
+        <div id="m1" class="card">
+            <h2>1. Builder Pattern <span class="badge">Creational Design Pattern</span></h2>
+            <p>Builder Pattern adalah design pattern creational yang memungkinkan pembuatan objek kompleks secara bertahap. Pattern ini memisahkan proses konstruksi dari representasi akhir objek, sehingga proses pembuatan yang sama bisa menghasilkan representasi objek yang berbeda.</p>
+            <div class="code-container">
+                <div class="code-header">📁 builder_pattern.dart</div>
+                <pre><code>// ==========================================
+// Nama  : MARTA SAPUTRA
+// NIM   : 251410020
+// Kelas : SI2A
+// ==========================================
+
+class Config {}
+
+class ConfigBuilder {
+  ConfigBuilder host(String h) {
+    print("Host : $h");
+    return this;
+  }
+
+  ConfigBuilder port(int p) {
+    print("Port : $p");
+    return this;
+  }
+
+  Config build() {
+    print("Config berhasil dibuat");
+    return Config();
+  }
+}
+
+void main() {
+  ConfigBuilder()
+      .host('localhost')
+      .port(8080)
+      .build();
+}</code></pre>
+            </div>
+            <button onclick="openModal('https://dartpad.dev/embed-dart.html?id=3c88f80c84ad1020e4576b4287108ae3&theme=light&run=true', 'Builder Pattern')">▶ JALANKAN KODE</button>
+        </div>
