@@ -546,6 +546,84 @@ void main() {
 </code></pre>
 </div>
 
+<button class="button" onclick="runDart('f6','https://dartpad.dev/embed-dart.html?id=042fc2038441d86dd126ff989cd7bf1a&theme=light&run=true')">Run Dart 6</button>
+<iframe id="f6"></iframe>
+</div>
+
+<!-- 7 -->
+<div class="section">
+<h2>7. FACTORY UNTUK CONGFIGURATION (Static)</h2>
+<p>Class Pesawat menggunakan interface untuk menentukan metode yang harus dimiliki oleh class yang menggunakannya, seperti terbang atau mendarat.</p>
+
+<div class="code-box">
+<pre><code>
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KELAS: SI2A
+
+class AppConfig {
+  final String environment;
+  final String apiUrl;
+  final bool debugMode;
+
+  // Constructor private untuk Development
+  AppConfig._development()
+      : environment = 'Development',
+        apiUrl = 'http://localhost:3000',
+        debugMode = true;
+
+  // Constructor private untuk Production
+  AppConfig._production()
+      : environment = 'Production',
+        apiUrl = 'https://api.example.com',
+        debugMode = false;
+
+  // Constructor private untuk Staging
+  AppConfig._staging()
+      : environment = 'Staging',
+        apiUrl = 'https://staging.example.com',
+        debugMode = true;
+
+  // Factory Constructor
+  factory AppConfig.fromEnvironment(String env) {
+    switch (env.toLowerCase()) {
+      case 'dev':
+      case 'development':
+        return AppConfig._development();
+
+      case 'prod':
+      case 'production':
+        return AppConfig._production();
+
+      case 'stage':
+      case 'staging':
+        return AppConfig._staging();
+
+      default:
+        throw ArgumentError('Environment tidak dikenal: $env');
+    }
+  }
+
+  void printConfig() {
+    print('Environment : $environment');
+    print('API URL     : $apiUrl');
+    print('Debug Mode  : $debugMode');
+    print('-------------------------');
+  }
+}
+
+void main() {
+  var devConfig = AppConfig.fromEnvironment('dev');
+  var prodConfig = AppConfig.fromEnvironment('prod');
+  var stageConfig = AppConfig.fromEnvironment('stage');
+
+  devConfig.printConfig();
+  prodConfig.printConfig();
+  stageConfig.printConfig();
+}
+</code></pre>
+</div>
+    
 <button class="button" onclick="runDart('f7','https://dartpad.dev/embed-dart.html?id=4063183f0921a04413377b027952db4a&theme=light&run=true')">Run Dart 7</button>
 <iframe id="f7"></iframe>
 </div>
