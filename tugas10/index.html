@@ -505,37 +505,60 @@
             <p>Builder Pattern adalah design pattern creational yang memungkinkan pembuatan objek kompleks secara bertahap. Pattern ini memisahkan proses konstruksi dari representasi akhir objek, sehingga proses pembuatan yang sama bisa menghasilkan representasi objek yang berbeda.</p>
             <div class="code-container">
                 <div class="code-header">📁 builder_pattern.dart</div>
-                <pre><code>// ==========================================
-// Nama  : MARTA SAPUTRA
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+                <pre><code>//// 
+NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KELAS: SI2A
 
-class Config {}
+// Extension Method pada String
+extension StringExt on String {
 
-class ConfigBuilder {
-  ConfigBuilder host(String h) {
-    print("Host : $h");
-    return this;
+  // Mengubah huruf pertama menjadi kapital
+  String capitalize() {
+    return this[0].toUpperCase() + substring(1);
   }
 
-  ConfigBuilder port(int p) {
-    print("Port : $p");
-    return this;
-  }
-
-  Config build() {
-    print("Config berhasil dibuat");
-    return Config();
+  // Mengecek apakah panjang teks genap
+  bool get isEvenLength {
+    return length % 2 == 0;
   }
 }
 
+// Extension Method pada int
+extension IntExt on int {
+
+  // Mengecek bilangan genap
+  bool get isEven => this % 2 == 0;
+
+  // Menghitung kuadrat
+  int square() => this * this;
+}
+
 void main() {
-  ConfigBuilder()
-      .host('localhost')
-      .port(8080)
-      .build();
-}</code></pre>
+
+  print("===== TUGAS EXTENSION METHODS =====");
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A");
+  print("==================================");
+
+  // String Extension
+  String nama = "marta saputra";
+
+  print("\nExtension String:");
+  print("Asli       : $nama");
+  print("Capitalize : ${nama.capitalize()}");
+  print("Panjang Genap? ${nama.isEvenLength}");
+
+  // Int Extension
+  int angka = 10;
+
+  print("\nExtension Integer:");
+  print("Angka       : $angka");
+  print("Bilangan Genap? ${angka.isEven}");
+  print("Kuadrat     : ${angka.square()}");
+}
+</code></pre>
             </div>
             <button onclick="openModal('https://dartpad.dev/embed-dart.html?id=3c88f80c84ad1020e4576b4287108ae3&theme=light&run=true', 'Builder Pattern')">▶ JALANKAN KODE</button>
         </div>
