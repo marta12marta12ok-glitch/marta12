@@ -185,77 +185,66 @@ function runDart(id, link){
 <body>
 <div class="container">
 
-<h1>Materi Polimorfisme & Abstraksi</h1>
+<h1>EXTENSION METHODS</h1>
 
 <!-- 1 -->
 <div class="section">
-<h2>1. Class Hewan (polimorfisme)</h2>
+<h2>1. EXTENSION METHODS</h2>
 <p>Polimorfisme pada class hewan adalah konsep dalam pemrograman di mana satu metode yang sama dapat digunakan oleh berbagai jenis hewan tetapi menghasilkan perilaku yang berbeda sesuai dengan jenis hewannya.</p> 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KELAS: SI2A
 
-abstract class Hewan {
-  String nama = "Hewan";
+// Extension Method pada String
+extension StringExt on String {
 
-  void bersuara();
-}
-
-class Kucing extends Hewan {
-  Kucing() {
-    nama = "Kucing";
+  // Mengubah huruf pertama menjadi kapital
+  String capitalize() {
+    return this[0].toUpperCase() + substring(1);
   }
 
-  @override
-  void bersuara() {
-    print('$nama: Meong');
+  // Mengecek apakah panjang teks genap
+  bool get isEvenLength {
+    return length % 2 == 0;
   }
 }
 
-class Anjing extends Hewan {
-  Anjing() {
-    nama = "Anjing";
-  }
+// Extension Method pada int
+extension IntExt on int {
 
-  @override
-  void bersuara() {
-    print('$nama: Guk guk');
-  }
-}
+  // Mengecek bilangan genap
+  bool get isEven => this % 2 == 0;
 
-class Burung extends Hewan {
-  Burung() {
-    nama = "Burung";
-  }
-
-  @override
-  void bersuara() {
-    print('$nama: Cuit cuit');
-  }
+  // Menghitung kuadrat
+  int square() => this * this;
 }
 
 void main() {
-print("=== Tugas Polimorfisme & Abstraksi ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------------");
 
-  List daftarHewan = [
-    Kucing(),
-    Anjing(),
-    Burung()
-  ];
+  print("===== TUGAS EXTENSION METHODS =====");
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A");
+  print("==================================");
 
-  for (var h in daftarHewan) {
-    h.bersuara();
-  }
+  // String Extension
+  String nama = "marta saputra";
+
+  print("\nExtension String:");
+  print("Asli       : $nama");
+  print("Capitalize : ${nama.capitalize()}");
+  print("Panjang Genap? ${nama.isEvenLength}");
+
+  // Int Extension
+  int angka = 10;
+
+  print("\nExtension Integer:");
+  print("Angka       : $angka");
+  print("Bilangan Genap? ${angka.isEven}");
+  print("Kuadrat     : ${angka.square()}");
 }
-
 </code></pre>
 </div>
 
@@ -265,53 +254,53 @@ print("--------------------------");
 
 <!-- 2 -->
 <div class="section">
-<h2>2. Class Bentuk (polimorfisme)</h2>
+<h2>2. PENGANTAR SINTAKS FACTORY CONSTRUCTOR</h2>
 <p>Class Bentuk pada polimorfisme adalah konsep di mana satu metode yang sama pada berbagai bentuk (seperti lingkaran, persegi, atau segitiga) dapat menghasilkan perilaku atau perhitungan yang berbeda sesuai dengan jenis bentuknya.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-class Bentuk {
-  void gambar() {
-    print('Menggambar bentuk');
+class Mahasiswa {
+  String nama;
+  String nim;
+
+  // Menyimpan instance yang sudah dibuat
+  static final Map<String, Mahasiswa> _cache = {};
+
+  // Constructor private
+  Mahasiswa._internal(this.nama, this.nim);
+
+  // Factory Constructor
+  factory Mahasiswa(String nama, String nim) {
+    if (_cache.containsKey(nim)) {
+      print("Instance dengan NIM $nim sudah ada.");
+      return _cache[nim]!;
+    } else {
+      print("Membuat instance baru untuk NIM $nim.");
+      final mahasiswa = Mahasiswa._internal(nama, nim);
+      _cache[nim] = mahasiswa;
+      return mahasiswa;
+    }
   }
-}
 
-class Lingkaran extends Bentuk {
-  @override
-  void gambar() {
-    print('Menggambar lingkaran');
-  }
-}
-
-class Persegi extends Bentuk {
-  @override
-  void gambar() {
-    print('Menggambar persegi');
+  void tampilkanInfo() {
+    print("Nama : $nama");
+    print("NIM  : $nim");
   }
 }
 
 void main() {
-print("=== Polimorfisme Bentuk ===");
-  // TAMBAHKAN INI
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------------------");
+  var mhs1 = Mahasiswa("MARTA SAPUTRA", "251410020");
+  var mhs2 = Mahasiswa("MARTA SAPUTRA", "251410020");
 
-  List daftarBentuk = [
-    Lingkaran(),
-    Persegi()
-  ];
+  print("\nData Mahasiswa:");
+  mhs1.tampilkanInfo();
 
-  for (var bentuk in daftarBentuk) {
-    bentuk.gambar();
-  }
+  print("\nApakah kedua objek sama?");
+  print(identical(mhs1, mhs2)); // true
 }
 </code></pre>
 </div>
@@ -322,45 +311,38 @@ print("--------------------------------");
 
 <!-- 3 -->
 <div class="section">
-<h2>3. Class Kendaraan (Operator 'is' & 'as')</h2>
+<h2>3. SINTAKS FACTORY CONSTRUCTOR</h2>
 <p>Class Kendaraan dengan operator is dan as digunakan untuk memeriksa tipe objek dan mengubah tipe objek dalam pewarisan class.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
 
-class Kendaraan {}
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-class Mobil extends Kendaraan {
-  void klakson() {
-    print('Tin!');
+class MyClass {
+  // Generative constructor (biasa)
+  MyClass() {
+    print("Generative Constructor Dipanggil");
+  }
+
+  // Factory constructor
+  factory MyClass.create() {
+    print("Factory Constructor Dipanggil");
+    return MyClass();
   }
 }
 
 void main() {
-print("=== Operator is dan as ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------------");
+  // Perbedaan penggunaan
 
-  Kendaraan k = Mobil();
+  var obj1 = MyClass(); // Generative
 
-  // Mengecek tipe dengan "is"
-  if (k is Mobil) {
-    print("Cek tipe: k adalah Mobil");
-    k.klakson();
-  }
+  print("----------------");
 
-  // Safe casting dengan "as?"
-  print("Safe casting:");
-  (k as Mobil?)?.klakson();
+  var obj2 = MyClass.create(); // Factory
 }
-
 </code></pre>
 </div>
 
@@ -370,53 +352,47 @@ print("--------------------------");
 
 <!-- 4 -->
 <div class="section">
-<h2>4. Abstract Class Kendaraan</h2>
+<h2>4. SINGLETON PATTERN</h2>
 <p>Abstract class Kendaraan adalah class dasar yang tidak dapat dibuat objeknya secara langsung dan digunakan sebagai dasar bagi class turunan seperti mobil atau motor.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KELAS: SI2A
 
-abstract class Kendaraan {
-  String merk;
-
-  // Constructor
-  Kendaraan(this.merk);
-
-  // Method abstract
-  void start();
-
-  // Method concrete
-  void stop() {
-    print('Kendaraan berhenti');
+class DatabaseConnection {
+  // Private Constructor
+  DatabaseConnection._internal() {
+    print("Creating database connection...");
   }
-}
 
-class Mobil extends Kendaraan {
-  // Constructor turunan
-  Mobil(String merk) : super(merk);
+  // Static instance (hanya satu)
+  static final DatabaseConnection _instance =
+      DatabaseConnection._internal();
 
-  @override
-  void start() {
-    print('Mobil $merk menyala');
+  // Factory Constructor
+  factory DatabaseConnection() {
+    return _instance;
+  }
+
+  void connect() {
+    print("Connected to database");
   }
 }
 
 void main() {
-print("=== Abstract Class Kendaraan ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------------------");
+  // Membuat dua objek
+  var db1 = DatabaseConnection();
+  var db2 = DatabaseConnection();
 
-  Mobil mobil = Mobil("Toyota");
+  // Mengecek apakah keduanya objek yang sama
+  print("Apakah db1 dan db2 sama?");
+  print(identical(db1, db2));
 
-  mobil.start();
-  mobil.stop();
+  // Menggunakan method connect
+  db1.connect();
+  db2.connect();
 }
 </code></pre>
 </div>
@@ -427,53 +403,68 @@ print("--------------------------------");
 
 <!-- 5 -->
 <div class="section">
-<h2>5. Class Alat Musik (Abstraksi)</h2>
+<h2>5. OBJECT POOL/CACHING</h2>
 <P>Class AlatMusik dalam abstraksi adalah konsep yang menyembunyikan detail implementasi dan hanya menampilkan fungsi penting seperti cara memainkan alat musik.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KELAS: SI2A
 
-abstract class AlatMusik {
-  String nama;
+class ConnectionPool {
+  final String host;
+  final int port;
 
-  // Constructor
-  AlatMusik(this.nama);
+  // Cache berdasarkan parameter
+  static final Map<String, ConnectionPool> _cache = {};
 
-  // Method abstract
-  void mainkan();
+  // Private Constructor
+  ConnectionPool._(this.host, this.port);
 
-  // Method concrete
-  void info() {
-    print('Ini adalah alat musik $nama');
+  // Factory Constructor
+  factory ConnectionPool(String host, int port) {
+    var key = '$host:$port';
+
+    // Return dari cache jika sudah ada
+    if (_cache.containsKey(key)) {
+      print('Returning cached connection for $key');
+      return _cache[key]!;
+    }
+
+    // Membuat koneksi baru
+    print('Creating new connection for $key');
+    var connection = ConnectionPool._(host, port);
+    _cache[key] = connection;
+    return connection;
   }
-}
 
-class Gitar extends AlatMusik {
-  // Constructor turunan
-  Gitar(String nama) : super(nama);
-
-  @override
-  void mainkan() {
-    print('Gitar $nama berbunyi: Jreng jreng...');
+  void query(String sql) {
+    print('Executing "$sql" on $host:$port');
   }
 }
 
 void main() {
-print("=== Abstract Class Alat Musik ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------------------");
+  print('--- Membuat conn1 (localhost:5432) ---');
+  var conn1 = ConnectionPool('localhost', 5432);
+  conn1.query('SELECT * FROM users');
 
-  Gitar gitar = Gitar("Akustik");
+  print('');
 
-  gitar.info();
-  gitar.mainkan();
+  print('--- Membuat conn2 (localhost:5432) ---');
+  var conn2 = ConnectionPool('localhost', 5432);
+  conn2.query('INSERT INTO products VALUES ("Laptop")');
+
+  print('');
+
+  print('--- Membuat conn3 (db.example.com:3306) ---');
+  var conn3 = ConnectionPool('db.example.com', 3306);
+  conn3.query('UPDATE orders SET status="shipped" WHERE id=101');
+
+  print('');
+
+  print('Apakah conn1 dan conn2 sama? ${identical(conn1, conn2)}');
+  print('Apakah conn1 dan conn3 sama? ${identical(conn1, conn3)}');
 }
 </code></pre>
 </div>
@@ -484,91 +475,73 @@ print("--------------------------------");
 
 <!-- 6 -->
 <div class="section">
-<h2>6. Class Pesawat (Interface)</h2>
+<h2>6. MENGEMBALIKAN SUBCLASS</h2>
 <p>Konsep interface dalam Dart digunakan untuk mendefinisikan kontrak yang harus diimplementasikan oleh class lain.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KELAS: SI2A
 
-// Abstract Class
-abstract class Kendaraan {
-  void jalan();
-}
+abstract class Shape {
+  void draw();
 
-// Interface
-abstract class Terbang {
-  void terbang();
-}
-
-// Class Pesawat
-class Pesawat extends Kendaraan implements Terbang {
-  @override
-  void jalan() {
-    print('Pesawat berjalan di landasan');
+  // Factory Constructor
+  factory Shape(String type) {
+    switch (type.toLowerCase()) {
+      case 'circle':
+        return Circle();
+      case 'square':
+        return Square();
+      case 'triangle':
+        return Triangle();
+      case 'rectangle':
+        return Rectangle();
+      default:
+        throw ArgumentError('Unknown shape: $type');
+    }
   }
+}
 
+class Circle implements Shape {
   @override
-  void terbang() {
-    print('Pesawat terbang di udara');
+  void draw() {
+    print('Drawing Circle');
+  }
+}
+
+class Square implements Shape {
+  @override
+  void draw() {
+    print('Drawing Square');
+  }
+}
+
+class Triangle implements Shape {
+  @override
+  void draw() {
+    print('Drawing Triangle');
+  }
+}
+
+class Rectangle implements Shape {
+  @override
+  void draw() {
+    print('Drawing Rectangle');
   }
 }
 
 void main() {
-print("=== OOP Dart ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------");
+  Shape circle = Shape('circle');
+  Shape square = Shape('square');
+  Shape triangle = Shape('triangle');
+  Shape rectangle = Shape('rectangle');
 
-  Pesawat pesawat = Pesawat();
-
-  pesawat.jalan();
-  pesawat.terbang();
-}
-</code></pre>
-</div>
-
-<button class="button" onclick="runDart('f6','https://dartpad.dev/embed-dart.html?id=042fc2038441d86dd126ff989cd7bf1a&theme=light&run=true')">Run Dart 6</button>
-<iframe id="f6"></iframe>
-</div>
-
-<!-- 7 -->
-<div class="section">
-<h2>7. Class Mathutils (Static)</h2>
-<p>Class Pesawat menggunakan interface untuk menentukan metode yang harus dimiliki oleh class yang menggunakannya, seperti terbang atau mendarat.</p>
-
-<div class="code-box">
-<pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
-
-class MathUtils {
-// Static variable
-static double pi = 3.14;
-
-// Static method
-static int add(int a, int b) {
-return a + b;
-}
-}
-
-void main() {
-print("=== Static Members dan Method ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("---------------------------------");
-
-print('Nilai pi : ${MathUtils.pi}');
-print('Result   : ${MathUtils.add(10,20)}');
+  circle.draw();
+  square.draw();
+  triangle.draw();
+  rectangle.draw();
 }
 </code></pre>
 </div>
@@ -579,7 +552,7 @@ print('Result   : ${MathUtils.add(10,20)}');
 
 <!-- 8 -->
 <div class="section">
-<h2>8. Class MetodePembayaran (Interface)</h2>
+<h2>8. </h2>
 <p>Class MetodePembayaran dengan interface adalah konsep yang menentukan metode pembayaran yang harus dimiliki oleh class lain, seperti bayar menggunakan kartu, transfer, atau e-wallet.</p>
 
 <div class="code-box">
