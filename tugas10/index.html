@@ -552,7 +552,7 @@ void main() {
 
 <!-- 7 -->
 <div class="section">
-<h2>7. FACTORY UNTUK CONGFIGURATION (Static)</h2>
+<h2>7. FACTORY UNTUK CONGFIGURATION</h2>
 <p>Class Pesawat menggunakan interface untuk menentukan metode yang harus dimiliki oleh class yang menggunakannya, seperti terbang atau mendarat.</p>
 
 <div class="code-box">
@@ -630,50 +630,68 @@ void main() {
 
 <!-- 8 -->
 <div class="section">
-<h2>8. </h2>
+<h2>8. FACTORY DENGAN NAMED CONSTRUCTORS</h2>
 <p>Class MetodePembayaran dengan interface adalah konsep yang menentukan metode pembayaran yang harus dimiliki oleh class lain, seperti bayar menggunakan kartu, transfer, atau e-wallet.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-// Interface
-abstract class MetodePembayaran {
-void bayar(double jumlah);
-}
+class Mahasiswa {
+  String nama;
+  String nim;
+  String kelas;
 
-// Class Kartu Kredit
-class KartuKredit implements MetodePembayaran {
-@override
-void bayar(double jumlah) {
-print('Membayar Rp$jumlah menggunakan Kartu Kredit');
-}
-}
+  // Constructor utama
+  Mahasiswa(this.nama, this.nim, this.kelas);
 
-// Class E-Wallet
-class EWallet implements MetodePembayaran {
-@override
-void bayar(double jumlah) {
-print('Membayar Rp$jumlah menggunakan E-Wallet');
-}
+  // Named Constructor default
+  Mahasiswa.defaultData()
+      : nama = "MARTA SAPUTRA",
+        nim = "251410020",
+        kelas = "SI2A";
+
+  // Named Constructor custom
+  Mahasiswa.custom({
+    required this.nama,
+    required this.nim,
+    required this.kelas,
+  });
+
+  // Method tampil data
+  void tampilkanData() {
+    print("===== DATA MAHASISWA =====");
+    print("Nama  : $nama");
+    print("NIM   : $nim");
+    print("Kelas : $kelas");
+  }
 }
 
 void main() {
-print("=== Metode Pembayaran ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("-------------------------");
+  // Object constructor biasa
+  Mahasiswa mhs1 =
+      Mahasiswa("MARTA SAPUTRA", "251410020", "SI2A");
 
-KartuKredit kartu = KartuKredit();
-EWallet ewallet = EWallet();
+  // Object named constructor default
+  Mahasiswa mhs2 = Mahasiswa.defaultData();
 
-kartu.bayar(50000);
-ewallet.bayar(25000);
+  // Object named constructor custom
+  Mahasiswa mhs3 = Mahasiswa.custom(
+    nama: "MARTA SAPUTRA",
+    nim: "251410020",
+    kelas: "SI2A",
+  );
+
+  // Output
+  mhs1.tampilkanData();
+  print("");
+
+  mhs2.tampilkanData();
+  print("");
+
+  mhs3.tampilkanData();
 }
 </code></pre>
 </div>
@@ -684,83 +702,55 @@ ewallet.bayar(25000);
 
 <!-- 9 -->
 <div class="section">
-<h2>9. Class Bentuk Geometri adalah class yang digunakan untuk merepresentasikan berbagai bentuk geometri seperti persegi, segitiga, dan lingkaran yang memiliki perhitungan seperti luas atau keliling..</p>
+<h2>9. FACTORY DENGAN GENERIC</h2>
+<p>pengertian nomor 9</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-abstract class Bentuk {
-double hitungLuas();
-double hitungKeliling();
+abstract class Response<T> {
+  final T? data;
+  final String? error;
 
-void info() {
-print('Luas: ${hitungLuas()}, Keliling: ${hitungKeliling()}');
-}
-}
+  Response({this.data, this.error});
 
-// Class Persegi
-class Persegi extends Bentuk {
-double sisi;
+  // Factory untuk sukses
+  factory Response.success(T data) = SuccessResponse<T>;
 
-Persegi(this.sisi);
-
-@override
-double hitungLuas() {
-return sisi * sisi;
+  // Factory untuk error
+  factory Response.error(String error) = ErrorResponse<T>;
 }
 
-@override
-double hitungKeliling() {
-return 4 * sisi;
+// Class success
+class SuccessResponse<T> extends Response<T> {
+  SuccessResponse(T data) : super(data: data);
 }
 
-@override
-void info() {
-print(
-'Persegi dengan sisi $sisi memiliki luas ${hitungLuas()} dan keliling ${hitungKeliling()}');
-}
-}
-
-// Class Lingkaran
-class Lingkaran extends Bentuk {
-double radius;
-
-Lingkaran(this.radius);
-
-@override
-double hitungLuas() {
-return 3.14 * radius * radius;
-}
-
-@override
-double hitungKeliling() {
-return 2 * 3.14 * radius;
-}
-
-@override
-void info() {
-print(
-'Lingkaran dengan radius $radius memiliki luas ${hitungLuas()} dan keliling ${hitungKeliling()}');
-}
+// Class error
+class ErrorResponse<T> extends Response<T> {
+  ErrorResponse(String error) : super(error: error);
 }
 
 void main() {
-print("=== Sistem Bentuk Geometri ===");
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-print("--------------------------------");
 
-Persegi persegi = Persegi(4);
-Lingkaran lingkaran = Lingkaran(7);
+  // Data berhasil
+  Response<String> sukses =
+      Response.success("Data Mahasiswa Berhasil Ditampilkan");
 
-persegi.info();
-lingkaran.info();
+  // Data error
+  Response<String> gagal =
+      Response.error("Data Mahasiswa Tidak Ditemukan");
+
+  print("===== RESPONSE SUCCESS =====");
+  print(sukses.data);
+
+  print("");
+
+  print("===== RESPONSE ERROR =====");
+  print(gagal.error);
 }
 </code></pre>
 </div>
@@ -771,58 +761,91 @@ lingkaran.info();
 
 <!-- 10 -->
 <div class="section">
-<h2>10. Class Pekerja (Bonus 1)</h2>
+<h2>10. FACTORY UNTUK PAYMENT METHODS </h2>
 <p>Class Pekerja adalah class yang merepresentasikan data dan fungsi yang berkaitan dengan pekerja, seperti nama, jabatan, dan gaji.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
-/// Bonus 1
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-abstract class Pekerja {
-String nama;
+abstract class PaymentMethod {
 
-Pekerja(this.nama);
+  void pay(double amount);
 
-void bekerja();
+  // Factory Constructor
+  factory PaymentMethod(String type) {
 
-void info() {
-print("Nama: $nama");
+    switch (type.toLowerCase()) {
+
+      case 'creditcard':
+        return CreditCardPayment();
+
+      case 'paypal':
+        return PayPalPayment();
+
+      case 'banktransfer':
+        return BankTransferPayment();
+
+      case 'ewallet':
+        return EwalletPayment();
+
+      default:
+        throw ArgumentError(
+            'Metode pembayaran tidak ditemukan');
+    }
+  }
 }
+
+// Pembayaran Kartu Kredit
+class CreditCardPayment implements PaymentMethod {
+
+  @override
+  void pay(double amount) {
+    print("Pembayaran Rp$amount menggunakan Credit Card");
+  }
 }
 
-class Programmer extends Pekerja {
-Programmer(String nama) : super(nama);
+// Pembayaran PayPal
+class PayPalPayment implements PaymentMethod {
 
-@override
-void bekerja() {
-print("$nama bekerja sebagai Programmer");
+  @override
+  void pay(double amount) {
+    print("Pembayaran Rp$amount menggunakan PayPal");
+  }
 }
+
+// Pembayaran Transfer Bank
+class BankTransferPayment implements PaymentMethod {
+
+  @override
+  void pay(double amount) {
+    print("Pembayaran Rp$amount menggunakan Bank Transfer");
+  }
+}
+
+// Pembayaran E-Wallet
+class EwalletPayment implements PaymentMethod {
+
+  @override
+  void pay(double amount) {
+    print("Pembayaran Rp$amount menggunakan E-Wallet");
+  }
 }
 
 void main() {
-print("=== Class Pekerja ===");
-  // TAMBAHKAN INI
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-  print("--------------------------------");
 
-  Programmer p = Programmer("Andi");
-  p.info();
-  p.bekerja();
+  PaymentMethod pembayaran1 =
+      PaymentMethod("creditcard");
+
+  PaymentMethod pembayaran2 =
+      PaymentMethod("ewallet");
+
+  pembayaran1.pay(500000);
+
+  pembayaran2.pay(250000);
 }
-
-
-/*
-Hasil Output:
-Nama: Andi
-Andi bekerja sebagai Programmer
-*/
 
 </code></pre>
 </div>
@@ -832,78 +855,62 @@ Andi bekerja sebagai Programmer
 </div>
 
 <div class="section">
-<h2>11. Multi Class Pekerja (Bonus 2)</h2>
+<h2>11. FACTORY VS STATIC METHOD</h2>
 
 <p>Menggunakan beberapa class untuk mengelola berbagai jenis pekerja.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
-/// Bonus 2
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-abstract class Pekerja {
-String nama;
-Pekerja(this.nama);
+class Mahasiswa {
+  String nama;
+  String nim;
+  String kelas;
 
-void bekerja();
+  // Constructor biasa
+  Mahasiswa(this.nama, this.nim, this.kelas);
+
+  // Factory Constructor
+  factory Mahasiswa.createMahasiswa(
+      String nama, String nim, String kelas) {
+    return Mahasiswa(nama, nim, kelas);
+  }
+
+  // Static Method
+  static Mahasiswa createStatic(
+      String nama, String nim, String kelas) {
+    return Mahasiswa(nama, nim, kelas);
+  }
+
+  void tampilkanData() {
+    print('Nama  : $nama');
+    print('NIM   : $nim');
+    print('Kelas : $kelas');
+  }
 }
-
-class Programmer extends Pekerja {
-Programmer(String nama) : super(nama);
-
-@override
-void bekerja() {
-print("$nama adalah Programmer");
-}
-}
-
-class Dokter extends Pekerja {
-Dokter(String nama) : super(nama);
-
-@override
-void bekerja() {
-print("$nama adalah Dokter");
-}
-}
-
-class Guru extends Pekerja {
-Guru(String nama) : super(nama);
-
-@override
-void bekerja() {
-print("$nama adalah Guru");
-}
-}
-
 
 void main() {
-print("=== Multi Class Pekerja ===");
-  // TAMBAHKAN INI
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-  print("--------------------------------");
+  // Menggunakan Factory Constructor
+  var m1 = Mahasiswa.createMahasiswa(
+      'MARTA SAPUTRA', '251410020', 'SI2A');
 
-  Programmer p = Programmer("Andi");
-  Dokter d = Dokter("Budi");
-  Guru g = Guru("Citra");
+  // Menggunakan Static Method
+  var m2 = Mahasiswa.createStatic(
+      'MARTA SAPUTRA', '251410020', 'SI2A');
 
-  p.bekerja();
-  d.bekerja();
-  g.bekerja();
+  print('=== Factory Constructor ===');
+  m1.tampilkanData();
+
+  print('\n=== Static Method ===');
+  m2.tampilkanData();
+
+  if (m1 != m2) {
+    print('\nKedua objek merupakan instansi yang berbeda.');
+  }
 }
-
-/*
-Hasil Output:
-Andi adalah Programmer
-Budi adalah Dokter
-Citra adalah Guru
-*/
-
 </code></pre>
 </div>
 
@@ -912,79 +919,65 @@ Citra adalah Guru
 </div>
 
 <div class="section">
-<h2>12. Polimorfisme List (Bonus 3)</h2>
+<h2>12. FACTORY UNTUK IMMUTABLE OBJECTS DENGAN CACHE</h2>
 
 <p>Satu list dapat menyimpan berbagai objek berbeda dari satu class dasar.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
-/// Bonus 3
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-abstract class Pekerja {
-String nama;
-Pekerja(this.nama);
+class Mahasiswa {
+  final String nama;
+  final String nim;
+  final String kelas;
 
-void bekerja();
-}
+  // Cache untuk menyimpan objek yang sudah dibuat
+  static final Map<String, Mahasiswa> _cache = {};
 
-class Programmer extends Pekerja {
-Programmer(String nama) : super(nama);
+  // Private Constructor
+  Mahasiswa._(this.nama, this.nim, this.kelas);
 
-@override
-void bekerja() {
-print("$nama sedang coding");
-}
-}
+  // Factory Constructor dengan Cache
+  factory Mahasiswa(String nama, String nim, String kelas) {
+    String key = "$nama-$nim-$kelas";
 
-class Dokter extends Pekerja {
-Dokter(String nama) : super(nama);
+    if (!_cache.containsKey(key)) {
+      _cache[key] = Mahasiswa._(nama, nim, kelas);
+    }
 
-@override
-void bekerja() {
-print("$nama sedang mengobati pasien");
-}
-}
+    return _cache[key]!;
+  }
 
-class Guru extends Pekerja {
-Guru(String nama) : super(nama);
-
-@override
-void bekerja() {
-print("$nama sedang mengajar");
-}
-}
-
-void main() {
-print("=== Polimorfisme List ===");
-  // TAMBAHKAN INI
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-  print("--------------------------------");
-
-  List daftar = [
-    Programmer("Andi"),
-    Dokter("Budi"),
-    Guru("Citra"),
-  ];
-
-  for(var p in daftar) {
-    p.bekerja();
+  @override
+  String toString() {
+    return "Nama: $nama, NIM: $nim, Kelas: $kelas";
   }
 }
 
+void main() {
+  // Membuat objek pertama
+  var mhs1 = Mahasiswa(
+    "MARTA SAPUTRA",
+    "251410020",
+    "SI2A",
+  );
 
-/*
-Hasil Output:
-Andi sedang coding
-Budi sedang mengobati pasien
-Citra sedang mengajar
-*/
+  // Membuat objek kedua dengan data yang sama
+  var mhs2 = Mahasiswa(
+    "MARTA SAPUTRA",
+    "251410020",
+    "SI2A",
+  );
+
+  print("Data Mahasiswa:");
+  print(mhs1);
+
+  print("\nApakah mhs1 dan mhs2 objek yang sama?");
+  print(identical(mhs1, mhs2)); // true karena menggunakan cache
+}
 </code></pre>
 </div>
 
@@ -993,69 +986,101 @@ Citra sedang mengajar
 </div>
 
 <div class="section">
-<h2>13. Multiple Interface (Bonus 4 )</h2>
+<h2>13. DOCUMENT FACTORY </h2>
 
 <p>Satu class dapat menggunakan lebih dari satu interface.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
-/// Bonus 4
+// NAMA : MARTA SAPUTRA
+// NIM  : 251410020
+// KLS  : SI2A
 
-abstract class Komputer {
-void menjalankanProgram();
+// Abstract Class
+abstract class Document {
+  void render();
+
+  // Factory Constructor
+  factory Document(String type, String content) {
+    switch (type.toLowerCase()) {
+      case 'pdf':
+        return PdfDocument(content);
+      case 'word':
+        return WordDocument(content);
+      case 'html':
+        return HtmlDocument(content);
+      default:
+        return PlainTextDocument(content);
+    }
+  }
 }
 
-abstract class Kamera {
-void ambilFoto();
+// PDF Document
+class PdfDocument implements Document {
+  final String content;
+
+  PdfDocument(this.content);
+
+  @override
+  void render() {
+    print('Rendering PDF: $content');
+  }
 }
 
-abstract class Telepon {
-void menelepon();
+// Word Document
+class WordDocument implements Document {
+  final String content;
+
+  WordDocument(this.content);
+
+  @override
+  void render() {
+    print('Rendering Word: $content');
+  }
 }
 
-class Tablet implements Komputer, Kamera, Telepon {
-@override
-void menjalankanProgram() {
-print("Tablet menjalankan program");
+// HTML Document
+class HtmlDocument implements Document {
+  final String content;
+
+  HtmlDocument(this.content);
+
+  @override
+  void render() {
+    print('Rendering HTML: $content');
+  }
 }
 
-@override
-void ambilFoto() {
-print("Tablet mengambil foto");
-}
+// Plain Text Document
+class PlainTextDocument implements Document {
+  final String content;
 
-@override
-void menelepon() {
-print("Tablet menelepon");
-}
+  PlainTextDocument(this.content);
+
+  @override
+  void render() {
+    print('Rendering Plain Text: $content');
+  }
 }
 
 void main() {
-print("=== Multiple Interface ===");
-  // TAMBAHKAN INI
-print("Nama  : Marta Saputra");
-print("NIM   : 251410020");
-print("Kelas : SI2A");
-  print("--------------------------------");
+  print('=== STUDI KASUS DOCUMENT FACTORY ===\n');
 
-  Tablet tablet = Tablet();
-  tablet.menjalankanProgram();
-  tablet.ambilFoto();
-  tablet.menelepon();
+  Document doc1 = Document('pdf', 'Laporan Mahasiswa');
+  Document doc2 = Document('word', 'Tugas Pemrograman Dart');
+  Document doc3 = Document('html', '<h1>Selamat Datang</h1>');
+  Document doc4 = Document('txt', 'Dokumen Teks Biasa');
+
+  doc1.render();
+  doc2.render();
+  doc3.render();
+  doc4.render();
+
+  print('\nData Praktikan');
+  print('Nama  : MARTA SAPUTRA');
+  print('NIM   : 251410020');
+  print('Kelas : SI2A');
 }
-
-
-/*
-Hasil Output:
-Tablet menjalankan program
-Tablet mengambil foto
-Tablet menelepon
-*/
 </code></pre>
 </div>
 
@@ -1064,87 +1089,63 @@ Tablet menelepon
 </div>
 
 <div class="section">
-<h2>14. Utility Math (Bonus 5)</h2>
+<h2>14. RINGKASAN & BEST PRACTICES</h2>
 
 <p>Class yang menyediakan fungsi-fungsi bantuan untuk perhitungan matematika.</p>
 
 <div class="code-box">
 <pre><code>
-// ==========================================
 // Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : SI2A
-// ==========================================
-/// Bonus 5
+// Kelas : TI
 
-import 'dart:math';
+class Mahasiswa {
+  String nama;
+  String nim;
 
-class MathUtils {
+  // Cache untuk menyimpan objek yang sudah dibuat
+  static final Map<String, Mahasiswa> _cache = {};
 
-  static Random rand = Random(1);
+  // Generative Constructor
+  Mahasiswa._internal(this.nama, this.nim);
 
-  static int faktorial(int n) {
-    if(n <= 1) return 1;
-    return n * faktorial(n-1);
-  }
-
-  static bool cekPrima(int n) {
-    if(n <= 1) return false;
-    for(int i = 2; i <= sqrt(n); i++) {
-      if(n % i == 0) return false;
+  // Factory Constructor
+  factory Mahasiswa(String nama, String nim) {
+    // Validasi
+    if (nama.isEmpty || nim.isEmpty) {
+      throw ArgumentError("Nama dan NIM tidak boleh kosong!");
     }
-    return true;
-  }
 
-  static double pembulatan(double angka, int desimal) {
-    double scale = pow(10, desimal).toDouble();
-    return (angka * scale).round() / scale;
-  }
-
-  static int randomInt(int min, int max) {
-    return min + rand.nextInt(max - min + 1);
-  }
-
-  static double rataRata(List list) {
-    int total = list.reduce((a, b) => a + b);
-    return total / list.length;
-  }
-
-  static double median(List list) {
-    List sorted = List.from(list)..sort();
-    int n = sorted.length;
-
-    if(n % 2 == 0) {
-      return (sorted[n ~/ 2 - 1] + sorted[n ~/ 2]) / 2;
-    } else {
-      return sorted[n ~/ 2].toDouble();
+    // Caching
+    if (_cache.containsKey(nim)) {
+      print("Mengambil data dari cache...");
+      return _cache[nim]!;
     }
+
+    print("Membuat objek baru...");
+    final mahasiswaBaru = Mahasiswa._internal(nama, nim);
+
+    _cache[nim] = mahasiswaBaru;
+
+    return mahasiswaBaru;
+  }
+
+  void tampilkanData() {
+    print("Nama : $nama");
+    print("NIM  : $nim");
   }
 }
 
 void main() {
-  print("=== Utility Math ===");
-  print("Nama  : Marta Saputra");
-  print("NIM   : 251410020");
-  print("Kelas : SI2A");
-  print("--------------------------------");
+  var m1 = Mahasiswa("Marta Saputra", "251410020");
+  var m2 = Mahasiswa("Marta Saputra", "251410020");
 
-  print("Faktorial 5 = ${MathUtils.faktorial(5)}");
-  print("Prima 7 = ${MathUtils.cekPrima(7)}");
-  print("Pembulatan = ${MathUtils.pembulatan(3.14159, 2)}");
-  print("Contoh angka = ${MathUtils.randomInt(1, 10)}");
-  print("Rata-rata = ${MathUtils.rataRata([10, 20, 30, 40, 50])}");
-  print("Median = ${MathUtils.median([10, 20, 30, 40, 50])}");
+  print("\nData Mahasiswa:");
+  m1.tampilkanData();
+
+  print("\nApakah m1 dan m2 objek yang sama?");
+  print(identical(m1, m2));
 }
-/*
-Hasil Output:
-Faktorial 5 = 120
-Prima 7 = true
-Pembulatan = 3.14
-contoh angka = 3
-Rata-rata = 30
-Median = 30
-*/
 </code></pre>
 </div>
 
