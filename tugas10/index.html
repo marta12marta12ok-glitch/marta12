@@ -316,13 +316,8 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
-
 class MyClass {
-  // Generative constructor (biasa)
+  // Generative constructor
   MyClass() {
     print("Generative Constructor Dipanggil");
   }
@@ -335,13 +330,25 @@ class MyClass {
 }
 
 void main() {
-  // Perbedaan penggunaan
+  print("=================================");
+  print("Nama  : MARTA SAPUTRA");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A");
+  print("=================================");
 
-  var obj1 = MyClass(); // Generative
+  // Generative Constructor
+  var obj1 = MyClass();
 
-  print("----------------");
+  print("---------------------------------");
 
-  var obj2 = MyClass.create(); // Factory
+  // Factory Constructor
+  var obj2 = MyClass.create();
+
+  print("---------------------------------");
+
+  // Menggunakan variabel agar tidak warning
+  print("Objek Generative : $obj1");
+  print("Objek Factory    : $obj2");
 }
 </code></pre>
 </div>
