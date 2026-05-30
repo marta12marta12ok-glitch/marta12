@@ -163,9 +163,9 @@ function runDart(id, link){
 <div class="header" style="padding: 30px 20px; border-radius: 12px; background: #ffffff; border-left: 6px solid #2f6fed; text-align: center;">
     
     <!-- JUDUL UTAMA -->
-    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 0; line-height: 1.3; font-weight: bold;">Polimorfisme</h1>
-    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 5px 0; line-height: 1.3; font-weight: bold;">&</h1>
-    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 0; line-height: 1.3; font-weight: bold;">Abstraksi</h1>
+    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 0; line-height: 1.3; font-weight: bold;">FACTORY</h1>
+    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 5px 0; line-height: 1.3; font-weight: bold;"></h1>
+    <h1 style="color: #2f6fed; font-size: clamp(2.2em, 6vw, 2.8em); margin: 0; line-height: 1.3; font-weight: bold;">CONSTRUCTORS</h1>
 
     <!-- GARIS PEMBATAS -->
     <hr style="width: 60%; max-width: 300px; margin: 20px auto; border: none; height: 2px; background-color: #2f6fed;">
@@ -185,12 +185,12 @@ function runDart(id, link){
 <body>
 <div class="container">
 
-<h1>EXTENSION METHODS</h1>
+
 
 <!-- 1 -->
 <div class="section">
 <h2>1. EXTENSION METHODS</h2>
-<p>Polimorfisme pada class hewan adalah konsep dalam pemrograman di mana satu metode yang sama dapat digunakan oleh berbagai jenis hewan tetapi menghasilkan perilaku yang berbeda sesuai dengan jenis hewannya.</p> 
+<p>Fitur yang memungkinkan kita menambahkan fungsi atau method baru ke suatu kelas tanpa mengubah kode asli kelas tersebut.</p> 
 <div class="code-box">
 <pre><code>
 // NAMA : MARTA SAPUTRA
@@ -255,7 +255,7 @@ void main() {
 <!-- 2 -->
 <div class="section">
 <h2>2. PENGANTAR SINTAKS FACTORY CONSTRUCTOR</h2>
-<p>Class Bentuk pada polimorfisme adalah konsep di mana satu metode yang sama pada berbagai bentuk (seperti lingkaran, persegi, atau segitiga) dapat menghasilkan perilaku atau perhitungan yang berbeda sesuai dengan jenis bentuknya.</p>
+<p>Factory constructor adalah konstruktor khusus yang digunakan untuk mengontrol proses pembuatan objek, sehingga objek yang dibuat bisa berasal dari cache, singleton, atau subclass tertentu.</p>
 
 <div class="code-box">
 <pre><code>
@@ -312,7 +312,7 @@ void main() {
 <!-- 3 -->
 <div class="section">
 <h2>3. SINTAKS FACTORY CONSTRUCTOR</h2>
-<p>Class Kendaraan dengan operator is dan as digunakan untuk memeriksa tipe objek dan mengubah tipe objek dalam pewarisan class.</p>
+<p>Bentuk penulisan factory constructor umumnya menggunakan kata kunci factory sebelum nama konstruktor untuk menghasilkan atau mengembalikan objek sesuai kebutuhan.</p>
 
 <div class="code-box">
 <pre><code>
@@ -353,7 +353,7 @@ void main() {
 <!-- 4 -->
 <div class="section">
 <h2>4. SINGLETON PATTERN</h2>
-<p>Abstract class Kendaraan adalah class dasar yang tidak dapat dibuat objeknya secara langsung dan digunakan sebagai dasar bagi class turunan seperti mobil atau motor.</p>
+<p>Pola desain yang memastikan hanya ada satu instance objek dari suatu kelas selama aplikasi berjalan dan menyediakan akses global ke instance tersebut.</p>
 
 <div class="code-box">
 <pre><code>
@@ -404,7 +404,7 @@ void main() {
 <!-- 5 -->
 <div class="section">
 <h2>5. OBJECT POOL/CACHING</h2>
-<P>Class AlatMusik dalam abstraksi adalah konsep yang menyembunyikan detail implementasi dan hanya menampilkan fungsi penting seperti cara memainkan alat musik.</p>
+<P>Teknik penyimpanan dan penggunaan kembali objek yang sudah dibuat sebelumnya agar tidak perlu membuat objek baru berulang kali, sehingga meningkatkan efisiensi penggunaan memori dan kinerja.</p>
 
 <div class="code-box">
 <pre><code>
@@ -476,7 +476,7 @@ void main() {
 <!-- 6 -->
 <div class="section">
 <h2>6. MENGEMBALIKAN SUBCLASS</h2>
-<p>Konsep interface dalam Dart digunakan untuk mendefinisikan kontrak yang harus diimplementasikan oleh class lain.</p>
+<p>Factory constructor dapat mengembalikan objek dari kelas turunan (subclass) yang berbeda sesuai kondisi tertentu, meskipun tipe yang dikembalikan tetap kelas induknya.</p>
 
 <div class="code-box">
 <pre><code>
@@ -553,7 +553,7 @@ void main() {
 <!-- 7 -->
 <div class="section">
 <h2>7. FACTORY UNTUK CONGFIGURATION</h2>
-<p>Class Pesawat menggunakan interface untuk menentukan metode yang harus dimiliki oleh class yang menggunakannya, seperti terbang atau mendarat.</p>
+<p>Factory digunakan untuk membuat objek berdasarkan konfigurasi tertentu, seperti data dari file, database, atau pengaturan aplikasi, sehingga proses pembuatan objek menjadi lebih fleksibel.</p>
 
 <div class="code-box">
 <pre><code>
@@ -631,7 +631,7 @@ void main() {
 <!-- 8 -->
 <div class="section">
 <h2>8. FACTORY DENGAN NAMED CONSTRUCTORS</h2>
-<p>Class MetodePembayaran dengan interface adalah konsep yang menentukan metode pembayaran yang harus dimiliki oleh class lain, seperti bayar menggunakan kartu, transfer, atau e-wallet.</p>
+<p>Factory constructor dapat bekerja bersama named constructor untuk menyediakan berbagai cara pembuatan objek yang lebih jelas dan terstruktur sesuai kebutuhan.</p>
 
 <div class="code-box">
 <pre><code>
@@ -703,7 +703,7 @@ void main() {
 <!-- 9 -->
 <div class="section">
 <h2>9. FACTORY DENGAN GENERIC</h2>
-<p>pengertian nomor 9</p>
+<p>Factory dapat menggunakan tipe generic (<T>) sehingga mampu membuat objek untuk berbagai tipe data tanpa perlu menulis kode yang berulang.</p>
 
 <div class="code-box">
 <pre><code>
@@ -762,7 +762,7 @@ void main() {
 <!-- 10 -->
 <div class="section">
 <h2>10. FACTORY UNTUK PAYMENT METHODS </h2>
-<p>Class Pekerja adalah class yang merepresentasikan data dan fungsi yang berkaitan dengan pekerja, seperti nama, jabatan, dan gaji.</p>
+<p>Factory digunakan untuk membuat objek metode pembayaran yang berbeda (misalnya transfer bank, e-wallet, atau kartu kredit) berdasarkan pilihan pengguna.</p>
 
 <div class="code-box">
 <pre><code>
@@ -857,7 +857,7 @@ void main() {
 <div class="section">
 <h2>11. FACTORY VS STATIC METHOD</h2>
 
-<p>Menggunakan beberapa class untuk mengelola berbagai jenis pekerja.</p>
+<p>Factory constructor merupakan bagian dari konstruktor kelas dan dapat mengembalikan instance yang sudah ada atau subclass, sedangkan static method adalah fungsi statis yang tidak terkait langsung dengan proses konstruksi objek.</p>
 
 <div class="code-box">
 <pre><code>
@@ -921,7 +921,7 @@ void main() {
 <div class="section">
 <h2>12. FACTORY UNTUK IMMUTABLE OBJECTS DENGAN CACHE</h2>
 
-<p>Satu list dapat menyimpan berbagai objek berbeda dari satu class dasar.</p>
+<p>Factory constructor dapat menyimpan objek immutable yang sudah dibuat dalam cache, sehingga objek yang sama dapat digunakan kembali tanpa membuat instance baru.</p>
 
 <div class="code-box">
 <pre><code>
@@ -988,7 +988,7 @@ void main() {
 <div class="section">
 <h2>13. DOCUMENT FACTORY </h2>
 
-<p>Satu class dapat menggunakan lebih dari satu interface.</p>
+<p>Pola factory yang digunakan untuk membuat berbagai jenis dokumen (seperti PDF, Word, atau Excel) melalui satu antarmuka yang sama.</p>
 
 <div class="code-box">
 <pre><code>
@@ -1091,13 +1091,13 @@ void main() {
 <div class="section">
 <h2>14. RINGKASAN & BEST PRACTICES</h2>
 
-<p>Class yang menyediakan fungsi-fungsi bantuan untuk perhitungan matematika.</p>
+<p>Gunakan factory constructor ketika diperlukan kontrol terhadap pembuatan objek, caching, singleton, atau pemilihan subclass. Hindari penggunaan factory jika konstruktor biasa sudah cukup sederhana dan mudah dipahami.</p>
 
 <div class="code-box">
 <pre><code>
 // Nama  : Marta Saputra
 // NIM   : 251410020
-// Kelas : TI
+// Kelas : SI2A
 
 class Mahasiswa {
   String nama;
