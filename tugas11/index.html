@@ -193,103 +193,69 @@ function runDart(id, link){
 <p>Fitur yang memungkinkan kita menambahkan fungsi atau method baru ke suatu kelas tanpa mengubah kode asli kelas tersebut.</p> 
 <div class="code-box">
 <pre><code>
-class Product {
-  final String id;
-  final String name;
-  final double price;
-  final String category;
-  final int stock;
+class Mahasiswa {
+  final String nama;
+  final String nim;
+  final String kelas;
+  final String prodi;
 
   // Main Constructor
-  Product({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.category,
-    required this.stock,
+  Mahasiswa({
+    required this.nama,
+    required this.nim,
+    required this.kelas,
+    required this.prodi,
   });
 
-  // Redirecting Constructor Level 1
-  Product.basic(String id, String name, double price)
+  // Redirecting Constructor
+  Mahasiswa.defaultData()
       : this(
-          id: id,
-          name: name,
-          price: price,
-          category: "General",
-          stock: 0,
+          nama: 'Marta Saputra',
+          nim: '251410020',
+          kelas: 'SI2A',
+          prodi: 'Sistem Informasi',
         );
 
-  // Redirecting Constructor Level 2
-  Product.withCategory(
-      String id,
-      String name,
-      double price,
-      String category,
-      ) : this(
-          id: id,
-          name: name,
-          price: price,
-          category: category,
-          stock: 0,
+  Mahasiswa.namaSaja(String nama)
+      : this(
+          nama: nama,
+          nim: '251410020',
+          kelas: 'SI2A',
+          prodi: 'Sistem Informasi',
         );
 
-  // Redirecting Constructor Level 3
-  Product.full({
-    required String id,
-    required String name,
-    required double price,
-    required String category,
-    required int stock,
-  }) : this(
-          id: id,
-          name: name,
-          price: price,
-          category: category,
-          stock: stock,
+  Mahasiswa.kelasSI2A(String nama, String nim)
+      : this(
+          nama: nama,
+          nim: nim,
+          kelas: 'SI2A',
+          prodi: 'Sistem Informasi',
         );
 
   @override
   String toString() {
     return '''
-=========================
-NAMA  : MARTA SAPUTRA
-NIM   : 251410020
-KELAS : SI2A
-=========================
-ID       : $id
-Produk   : $name
-Harga    : Rp${price.toStringAsFixed(0)}
-Kategori : $category
-Stok     : $stock
+Nama  : $nama
+NIM   : $nim
+Kelas : $kelas
+Prodi : $prodi
 ''';
   }
 }
 
 void main() {
-  var produk1 = Product.basic(
-    "P001",
-    "Laptop ASUS",
-    8500000,
-  );
+  var mhs1 = Mahasiswa.defaultData();
+  var mhs2 = Mahasiswa.namaSaja('Marta Saputra');
+  var mhs3 = Mahasiswa.kelasSI2A('Marta Saputra', '251410020');
 
-  var produk2 = Product.withCategory(
-    "P002",
-    "Mouse Gaming",
-    250000,
-    "Aksesoris",
-  );
+  print('=== Data Mahasiswa 1 ===');
+  print(mhs1);
 
-  var produk3 = Product.full(
-    id: "P003",
-    name: "Keyboard Mechanical",
-    price: 750000,
-    category: "Komputer",
-    stock: 20,
-  );
+  print('=== Data Mahasiswa 2 ===');
+  print(mhs2);
 
-  print(produk1);
-  print(produk2);
-  print(produk3);
+  print('=== Data Mahasiswa 3 ===');
+  print(mhs3);
 }
 </code></pre>
 </div>
@@ -305,103 +271,61 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-class Product {
-  final String id;
-  final String name;
-  final double price;
-  final String category;
-  final int stock;
+import 'dart:math';
+
+class Circle {
+  final double radius;
 
   // Main Constructor
-  Product({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.category,
-    required this.stock,
-  });
+  Circle(this.radius);
 
-  // Redirecting Constructor Level 1
-  Product.basic(String id, String name, double price)
-      : this(
-          id: id,
-          name: name,
-          price: price,
-          category: "General",
-          stock: 0,
-        );
+  // Redirecting Constructor dari diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-  // Redirecting Constructor Level 2
-  Product.withCategory(
-      String id,
-      String name,
-      double price,
-      String category,
-      ) : this(
-          id: id,
-          name: name,
-          price: price,
-          category: category,
-          stock: 0,
-        );
+  // Redirecting Constructor dari keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
 
-  // Redirecting Constructor Level 3
-  Product.full({
-    required String id,
-    required String name,
-    required double price,
-    required String category,
-    required int stock,
-  }) : this(
-          id: id,
-          name: name,
-          price: price,
-          category: category,
-          stock: stock,
-        );
+  // Redirecting Constructor dari luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
+
+  double get area => pi * radius * radius;
+
+  double get circumference => 2 * pi * radius;
 
   @override
   String toString() {
     return '''
-=========================
-NAMA  : MARTA SAPUTRA
-NIM   : 251410020
-KELAS : SI2A
-=========================
-ID       : $id
-Produk   : $name
-Harga    : Rp${price.toStringAsFixed(0)}
-Kategori : $category
-Stok     : $stock
+Radius      : ${radius.toStringAsFixed(2)}
+Luas        : ${area.toStringAsFixed(2)}
+Keliling    : ${circumference.toStringAsFixed(2)}
 ''';
   }
 }
 
 void main() {
-  var produk1 = Product.basic(
-    "P001",
-    "Laptop ASUS",
-    8500000,
-  );
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A\n");
 
-  var produk2 = Product.withCategory(
-    "P002",
-    "Mouse Gaming",
-    250000,
-    "Aksesoris",
-  );
+  var c1 = Circle(7);
+  var c2 = Circle.fromDiameter(14);
+  var c3 = Circle.fromCircumference(44);
+  var c4 = Circle.fromArea(154);
 
-  var produk3 = Product.full(
-    id: "P003",
-    name: "Keyboard Mechanical",
-    price: 750000,
-    category: "Komputer",
-    stock: 20,
-  );
+  print("=== Circle dari Radius ===");
+  print(c1);
 
-  print(produk1);
-  print(produk2);
-  print(produk3);
+  print("=== Circle dari Diameter ===");
+  print(c2);
+
+  print("=== Circle dari Keliling ===");
+  print(c3);
+
+  print("=== Circle dari Luas ===");
+  print(c4);
 }
 </code></pre>
 </div>
@@ -417,68 +341,55 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-import 'dart:math';
-
-class Circle {
-  final double radius;
+class Mahasiswa {
+  final String nama;
+  final String nim;
+  final String kelas;
 
   // Main Constructor
-  Circle(this.radius);
+  Mahasiswa(this.nama, this.nim, this.kelas);
 
-  // Redirecting Constructor dari Diameter
-  Circle.fromDiameter(double diameter)
-      : this(diameter / 2);
+  // Redirecting Constructor
+  Mahasiswa.defaultData()
+      : this(
+          'Marta Saputra',
+          '251410020',
+          'SI2A',
+        );
 
-  // Redirecting Constructor dari Keliling
-  Circle.fromCircumference(double circumference)
-      : this(circumference / (2 * pi));
+  Mahasiswa.namaSaja(String nama)
+      : this(
+          nama,
+          '251410020',
+          'SI2A',
+        );
 
-  // Redirecting Constructor dari Luas
-  Circle.fromArea(double area)
-      : this(sqrt(area / pi));
+  Mahasiswa.nimSaja(String nim)
+      : this(
+          'Marta Saputra',
+          nim,
+          'SI2A',
+        );
 
-  double get diameter => radius * 2;
-  double get circumference => 2 * pi * radius;
-  double get area => pi * radius * radius;
-
-  void display() {
-    print('==============================');
-    print('Nama  : MARTA SAPUTRA');
-    print('NIM   : 251410020');
-    print('Kelas : SI2A');
-    print('==============================');
-    print('Radius      : ${radius.toStringAsFixed(2)}');
-    print('Diameter    : ${diameter.toStringAsFixed(2)}');
-    print('Keliling    : ${circumference.toStringAsFixed(2)}');
-    print('Luas        : ${area.toStringAsFixed(2)}');
-    print('==============================\n');
+  @override
+  String toString() {
+    return 'Nama: $nama\nNIM: $nim\nKelas: $kelas';
   }
 }
 
 void main() {
-  // Dari radius
-  Circle c1 = Circle(7);
+  var mhs1 = Mahasiswa.defaultData();
+  var mhs2 = Mahasiswa.namaSaja('Marta Saputra');
+  var mhs3 = Mahasiswa.nimSaja('251410020');
 
-  // Dari diameter
-  Circle c2 = Circle.fromDiameter(14);
+  print('=== Mahasiswa 1 ===');
+  print(mhs1);
 
-  // Dari keliling
-  Circle c3 = Circle.fromCircumference(44);
+  print('\n=== Mahasiswa 2 ===');
+  print(mhs2);
 
-  // Dari luas
-  Circle c4 = Circle.fromArea(154);
-
-  print('CIRCLE DARI RADIUS');
-  c1.display();
-
-  print('CIRCLE DARI DIAMETER');
-  c2.display();
-
-  print('CIRCLE DARI KELILING');
-  c3.display();
-
-  print('CIRCLE DARI LUAS');
-  c4.display();
+  print('\n=== Mahasiswa 3 ===');
+  print(mhs3);
 }
 </code></pre>
 </div>
@@ -514,48 +425,41 @@ class Circle {
   Circle.fromArea(double area)
       : this(sqrt(area / pi));
 
-  double get diameter => radius * 2;
-  double get circumference => 2 * pi * radius;
   double get area => pi * radius * radius;
 
-  void display() {
-    print('==============================');
-    print('Nama  : MARTA SAPUTRA');
-    print('NIM   : 251410020');
-    print('Kelas : SI2A');
-    print('==============================');
-    print('Radius      : ${radius.toStringAsFixed(2)}');
-    print('Diameter    : ${diameter.toStringAsFixed(2)}');
-    print('Keliling    : ${circumference.toStringAsFixed(2)}');
-    print('Luas        : ${area.toStringAsFixed(2)}');
-    print('==============================\n');
+  double get circumference => 2 * pi * radius;
+
+  @override
+  String toString() {
+    return '''
+Radius      : ${radius.toStringAsFixed(2)}
+Luas        : ${area.toStringAsFixed(2)}
+Keliling    : ${circumference.toStringAsFixed(2)}
+''';
   }
 }
 
 void main() {
-  // Dari radius
-  Circle c1 = Circle(7);
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A\n");
 
-  // Dari diameter
-  Circle c2 = Circle.fromDiameter(14);
+  var lingkaran1 = Circle(7);
+  var lingkaran2 = Circle.fromDiameter(14);
+  var lingkaran3 = Circle.fromCircumference(44);
+  var lingkaran4 = Circle.fromArea(154);
 
-  // Dari keliling
-  Circle c3 = Circle.fromCircumference(44);
+  print("=== Dari Radius ===");
+  print(lingkaran1);
 
-  // Dari luas
-  Circle c4 = Circle.fromArea(154);
+  print("=== Dari Diameter ===");
+  print(lingkaran2);
 
-  print('CIRCLE DARI RADIUS');
-  c1.display();
+  print("=== Dari Keliling ===");
+  print(lingkaran3);
 
-  print('CIRCLE DARI DIAMETER');
-  c2.display();
-
-  print('CIRCLE DARI KELILING');
-  c3.display();
-
-  print('CIRCLE DARI LUAS');
-  c4.display();
+  print("=== Dari Luas ===");
+  print(lingkaran4);
 }
 </code></pre>
 </div>
@@ -591,48 +495,38 @@ class Circle {
   Circle.fromArea(double area)
       : this(sqrt(area / pi));
 
-  double get diameter => radius * 2;
-  double get circumference => 2 * pi * radius;
-  double get area => pi * radius * radius;
+  double get luas => pi * radius * radius;
 
-  void display() {
-    print('==============================');
-    print('Nama  : MARTA SAPUTRA');
-    print('NIM   : 251410020');
-    print('Kelas : SI2A');
-    print('==============================');
-    print('Radius      : ${radius.toStringAsFixed(2)}');
-    print('Diameter    : ${diameter.toStringAsFixed(2)}');
-    print('Keliling    : ${circumference.toStringAsFixed(2)}');
-    print('Luas        : ${area.toStringAsFixed(2)}');
-    print('==============================\n');
+  double get keliling => 2 * pi * radius;
+
+  void tampilkanData() {
+    print("Radius    : ${radius.toStringAsFixed(2)}");
+    print("Luas      : ${luas.toStringAsFixed(2)}");
+    print("Keliling  : ${keliling.toStringAsFixed(2)}");
   }
 }
 
 void main() {
-  // Dari radius
+  print("NAMA  : MARTA SAPUTRA");
+  print("NIM   : 251410020");
+  print("KELAS : SI2A\n");
+
   Circle c1 = Circle(7);
-
-  // Dari diameter
   Circle c2 = Circle.fromDiameter(14);
-
-  // Dari keliling
   Circle c3 = Circle.fromCircumference(44);
-
-  // Dari luas
   Circle c4 = Circle.fromArea(154);
 
-  print('CIRCLE DARI RADIUS');
-  c1.display();
+  print("=== Circle dari Radius ===");
+  c1.tampilkanData();
 
-  print('CIRCLE DARI DIAMETER');
-  c2.display();
+  print("\n=== Circle dari Diameter ===");
+  c2.tampilkanData();
 
-  print('CIRCLE DARI KELILING');
-  c3.display();
+  print("\n=== Circle dari Keliling ===");
+  c3.tampilkanData();
 
-  print('CIRCLE DARI LUAS');
-  c4.display();
+  print("\n=== Circle dari Luas ===");
+  c4.tampilkanData();
 }
 </code></pre>
 </div>
@@ -668,48 +562,44 @@ class Circle {
   Circle.fromArea(double area)
       : this(sqrt(area / pi));
 
-  double get diameter => radius * 2;
-  double get circumference => 2 * pi * radius;
   double get area => pi * radius * radius;
+  double get circumference => 2 * pi * radius;
 
-  void display() {
-    print('==============================');
-    print('Nama  : MARTA SAPUTRA');
-    print('NIM   : 251410020');
-    print('Kelas : SI2A');
-    print('==============================');
-    print('Radius      : ${radius.toStringAsFixed(2)}');
-    print('Diameter    : ${diameter.toStringAsFixed(2)}');
-    print('Keliling    : ${circumference.toStringAsFixed(2)}');
-    print('Luas        : ${area.toStringAsFixed(2)}');
-    print('==============================\n');
+  @override
+  String toString() {
+    return '''
+Radius       : ${radius.toStringAsFixed(2)}
+Luas         : ${area.toStringAsFixed(2)}
+Keliling     : ${circumference.toStringAsFixed(2)}
+''';
   }
 }
 
 void main() {
-  // Dari radius
-  Circle c1 = Circle(7);
+  print("================================");
+  print("      TUGAS REDIRECTING");
+  print("================================");
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A");
+  print("");
 
-  // Dari diameter
-  Circle c2 = Circle.fromDiameter(14);
+  var c1 = Circle(7);
+  var c2 = Circle.fromDiameter(14);
+  var c3 = Circle.fromCircumference(44);
+  var c4 = Circle.fromArea(154);
 
-  // Dari keliling
-  Circle c3 = Circle.fromCircumference(44);
+  print("=== Circle dari Radius ===");
+  print(c1);
 
-  // Dari luas
-  Circle c4 = Circle.fromArea(154);
+  print("=== Circle dari Diameter ===");
+  print(c2);
 
-  print('CIRCLE DARI RADIUS');
-  c1.display();
+  print("=== Circle dari Keliling ===");
+  print(c3);
 
-  print('CIRCLE DARI DIAMETER');
-  c2.display();
-
-  print('CIRCLE DARI KELILING');
-  c3.display();
-
-  print('CIRCLE DARI LUAS');
-  c4.display();
+  print("=== Circle dari Luas ===");
+  print(c4);
 }
 </code></pre>
 </div>
@@ -725,69 +615,63 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KELAS: SI2A
+    import 'dart:math';
 
-class AppConfig {
-  final String environment;
-  final String apiUrl;
-  final bool debugMode;
+class Circle {
+  final double radius;
 
-  // Constructor private untuk Development
-  AppConfig._development()
-      : environment = 'Development',
-        apiUrl = 'http://localhost:3000',
-        debugMode = true;
+  // Main Constructor
+  Circle(this.radius);
 
-  // Constructor private untuk Production
-  AppConfig._production()
-      : environment = 'Production',
-        apiUrl = 'https://api.example.com',
-        debugMode = false;
+  // Redirecting Constructor dari Diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-  // Constructor private untuk Staging
-  AppConfig._staging()
-      : environment = 'Staging',
-        apiUrl = 'https://staging.example.com',
-        debugMode = true;
+  // Redirecting Constructor dari Keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
 
-  // Factory Constructor
-  factory AppConfig.fromEnvironment(String env) {
-    switch (env.toLowerCase()) {
-      case 'dev':
-      case 'development':
-        return AppConfig._development();
+  // Redirecting Constructor dari Luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
 
-      case 'prod':
-      case 'production':
-        return AppConfig._production();
+  double get luas => pi * radius * radius;
+  double get keliling => 2 * pi * radius;
 
-      case 'stage':
-      case 'staging':
-        return AppConfig._staging();
-
-      default:
-        throw ArgumentError('Environment tidak dikenal: $env');
-    }
-  }
-
-  void printConfig() {
-    print('Environment : $environment');
-    print('API URL     : $apiUrl');
-    print('Debug Mode  : $debugMode');
-    print('-------------------------');
+  @override
+  String toString() {
+    return '''
+Radius    : ${radius.toStringAsFixed(2)}
+Luas      : ${luas.toStringAsFixed(2)}
+Keliling  : ${keliling.toStringAsFixed(2)}
+''';
   }
 }
 
 void main() {
-  var devConfig = AppConfig.fromEnvironment('dev');
-  var prodConfig = AppConfig.fromEnvironment('prod');
-  var stageConfig = AppConfig.fromEnvironment('stage');
+  print("==================================");
+  print("TUGAS SESI 11 - REDIRECTING");
+  print("==================================");
+  print("Nama  : Marta Saputra");
+  print("NIM   : 251410020");
+  print("Kelas : SI2A\n");
 
-  devConfig.printConfig();
-  prodConfig.printConfig();
-  stageConfig.printConfig();
+  var c1 = Circle(7);
+  var c2 = Circle.fromDiameter(14);
+  var c3 = Circle.fromCircumference(44);
+  var c4 = Circle.fromArea(154);
+
+  print("=== Dari Radius ===");
+  print(c1);
+
+  print("=== Dari Diameter ===");
+  print(c2);
+
+  print("=== Dari Keliling ===");
+  print(c3);
+
+  print("=== Dari Luas ===");
+  print(c4);
 }
 </code></pre>
 </div>
