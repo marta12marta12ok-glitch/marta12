@@ -1241,7 +1241,14 @@ void main() {
 <div class="section">
 <h2>14. RINGKASAN & BEST PRACTICES</h2>
 
-<p>Gunakan factory constructor ketika diperlukan kontrol terhadap pembuatan objek, caching, singleton, atau pemilihan subclass. Hindari penggunaan factory jika konstruktor biasa sudah cukup sederhana dan mudah dipahami.</p>
+<p>Redirecting Constructor (: this(...)) tanpa body
+Constructor yang mengarahkan pemanggilan ke constructor lain dalam class yang sama.
+Untuk memanggil constructor lain di class yang sama
+Digunakan agar satu constructor dapat menggunakan constructor lainnya.
+Mengurangi duplikasi kode
+Membantu menghindari penulisan kode yang sama berulang kali.
+Tidak bisa berisi logic kompleks
+Tidak dapat berisi perintah atau proses karena hanya berfungsi untuk mengalihkan pemanggilan constructor.</p>
 
 <div class="code-box">
 <pre><code>
