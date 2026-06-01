@@ -189,7 +189,7 @@ function runDart(id, link){
 
 <!-- 1 -->
 <div class="section">
-<h2>1. FACTORY CONCSTRUCTORS</h2>
+<h2>1. Factory Constructors</h2>
 <p>Factory Constructor adalah constructor khusus dalam Dart yang digunakan untuk mengontrol pembuatan objek. Factory constructor tidak selalu membuat objek baru, tetapi dapat mengembalikan objek yang sudah ada atau objek dari subclass lain.</p> 
 <div class="code-box">
 <pre><code>
@@ -266,7 +266,7 @@ void main() {
 
 <!-- 2 -->
 <div class="section">
-<h2>2. Redirecting Constructor</h2>
+<h2>2. Pengantar Redirecting Constructors</h2>
 <p>Redirecting Constructor adalah constructor yang mengarahkan pemanggilan ke constructor lain dalam class yang sama. Tujuannya untuk mengurangi penulisan kode yang berulang.</p>
 
 <div class="code-box">
@@ -400,7 +400,7 @@ void main() {
 
 <!-- 4 -->
 <div class="section">
-<h2>4. SINGLETON PATTERN</h2>
+<h2>4. Masalah Tanpa Redirecting Constructors</h2>
 <p>anpa redirecting constructor, kode inisialisasi sering ditulis berulang kali pada beberapa constructor sehingga program menjadi lebih panjang dan sulit dipelihara.</p>
 
 <div class="code-box">
@@ -470,7 +470,7 @@ void main() {
 
 <!-- 5 -->
 <div class="section">
-<h2>5. OBJECT POOL/CACHING</h2>
+<h2>5.Solusi dengan Redirecting Constructors</h2>
 <P>Redirecting constructor mengatasi duplikasi kode dengan mengarahkan constructor lain ke constructor utama sehingga kode menjadi lebih ringkas, rapi, dan mudah dikelola.</p>
 
 <div class="code-box">
@@ -537,7 +537,7 @@ void main() {
 
 <!-- 6 -->
 <div class="section">
-<h2>6. MENGEMBALIKAN SUBCLASS</h2>
+<h2>6. Redirecting Constructors dengan Named Parameters</h2>
 <p>Redirecting constructor juga dapat digunakan dengan parameter bernama (named parameters) untuk memberikan nilai tertentu saat objek dibuat.</p>
 
 <div class="code-box">
@@ -610,7 +610,7 @@ void main() {
 
 <!-- 7 -->
 <div class="section">
-<h2>7. FACTORY UNTUK CONGFIGURATION</h2>
+<h2>7. Configuration Class</h2>
 <p>Configuration Class adalah class yang digunakan untuk menyimpan dan mengatur konfigurasi atau pengaturan aplikasi, seperti tema, bahasa, server, dan lainnya agar lebih terstruktur.</p>
 
 <div class="code-box">
@@ -682,7 +682,7 @@ void main() {
 
 <!-- 8 -->
 <div class="section">
-<h2>8. FACTORY DENGAN NAMED CONSTRUCTORS</h2>
+<h2>8. Redirecting Constructors dengan Validasi</h2>
 <p>Redirecting constructor dapat dikombinasikan dengan validasi data melalui constructor utama sehingga semua data yang masuk akan diperiksa terlebih dahulu sebelum objek dibuat.</p>
 
 <div class="code-box">
@@ -753,7 +753,7 @@ void main() {
 
 <!-- 9 -->
 <div class="section">
-<h2>9. FACTORY DENGAN GENERIC</h2>
+<h2>9. Multiple Redirecting Levels</h2>
 <p>Multiple Redirecting Levels terjadi ketika satu constructor mengarahkan ke constructor lain, lalu constructor tersebut mengarahkan lagi ke constructor berikutnya. Hal ini membantu mengelola banyak pilihan inisialisasi objek secara terstruktur.</p>
 
 <div class="code-box">
@@ -850,7 +850,7 @@ void main() {
 
 <!-- 10 -->
 <div class="section">
-<h2>10. FACTORY UNTUK PAYMENT METHODS </h2>
+<h2>10. Redirecting Constructors vs Factory Constructors</h2>
 <p>Redirecting Constructor digunakan untuk menyederhanakan constructor, sedangkan Factory Constructor digunakan untuk mengatur bagaimana objek dibuat dan dikembalikan.</p>
 
 <div class="code-box">
@@ -934,7 +934,9 @@ void main() {
 </div>
 
 <div class="section">
-<h2>11. FACTORY VS STATIC METHOD</h2>
+<h2>11. API Response dengan Redirecting Constructors
+
+API Response dengan Redirecting Constructor adalah penggunaan</h2>
 
 <p>API Response dengan Redirecting Constructor adalah penggunaan redirecting constructor untuk mempermudah pembuatan objek dari data yang berasal dari API. Constructor tambahan dapat mengarahkan ke constructor utama sehingga proses inisialisasi lebih sederhana dan konsisten.</p>
 
@@ -1029,7 +1031,7 @@ void main() {
 </div>
 
 <div class="section">
-<h2>12. FACTORY UNTUK IMMUTABLE OBJECTS DENGAN CACHE</h2>
+<h2>12. Redirecting Constructors dengan Initializer List</h2>
 
 <p>Initializer List digunakan untuk menginisialisasi variabel sebelum constructor dijalankan. Redirecting constructor dapat memanfaatkan initializer list untuk meneruskan nilai ke constructor lain.</p>
 
@@ -1141,7 +1143,7 @@ void main() {
 </div>
 
 <div class="section">
-<h2>13. DOCUMENT FACTORY </h2>
+<h2>13. Best Practices Redirecting Constructor</h2>
 
 <p>Gunakan untuk menghindari duplikasi kode
 Jangan menulis logika yang sama pada banyak constructor.
@@ -1239,7 +1241,7 @@ void main() {
 </div>
 
 <div class="section">
-<h2>14. RINGKASAN & BEST PRACTICES</h2>
+<h2>14. Ringkasan & Latihan</h2>
 
 <p>Redirecting Constructor (: this(...)) tanpa body
 Constructor yang mengarahkan pemanggilan ke constructor lain dalam class yang sama.
@@ -1328,9 +1330,7 @@ void main() {
 <div class="summary-box">
 <p>Dari latihan-latihan di atas, dapat disimpulkan bahwa:</p>
 <ul>
-Factory Constructor pada Dart merupakan pola yang sangat berguna untuk mengontrol proses pembuatan objek. Dengan Factory Constructor, objek dapat dibuat berdasarkan kondisi tertentu, menggunakan cache agar objek yang sama tidak dibuat berulang kali, serta memilih subclass yang sesuai berdasarkan input pengguna. Selain itu, Factory Constructor juga dapat digunakan untuk validasi data sebelum objek dibuat sehingga program menjadi lebih efisien, terstruktur, dan mudah dikelola.
-Melalui latihan seperti ConnectionFactory, NotificationFactory, ShapeFactory, dan AnimalFactory, dapat dipahami bahwa Factory Constructor membantu menghemat penggunaan memori, meningkatkan performa aplikasi, serta mempermudah pengembangan kode yang fleksibel dan dapat digunakan kembali (reusable). Oleh karena itu, Factory Constructor menjadi salah satu fitur penting dalam pemrograman berorientasi objek menggunakan Dart.
-</ul>
+redirecting constructor adalah constructor yang digunakan untuk memanggil constructor lain dalam kelas yang sama dengan sintaks : this(...). Fitur ini membantu mengurangi duplikasi kode, membuat program lebih rapi, dan memusatkan proses inisialisasi objek pada satu constructor utama. Redirecting constructor sangat cocok digunakan untuk membuat constructor alternatif dengan parameter atau nilai default yang berbeda. Namun, redirecting constructor tidak dapat berisi logika yang kompleks karena tidak memiliki body, sehingga untuk kebutuhan validasi atau proses yang lebih rumit sebaiknya menggunakan factory constructor.
 </div>
 </div>
 
