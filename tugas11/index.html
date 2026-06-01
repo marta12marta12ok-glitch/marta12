@@ -193,57 +193,103 @@ function runDart(id, link){
 <p>Fitur yang memungkinkan kita menambahkan fungsi atau method baru ke suatu kelas tanpa mengubah kode asli kelas tersebut.</p> 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KELAS: SI2A
+class Product {
+  final String id;
+  final String name;
+  final double price;
+  final String category;
+  final int stock;
 
-// Extension Method pada String
-extension StringExt on String {
+  // Main Constructor
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.category,
+    required this.stock,
+  });
 
-  // Mengubah huruf pertama menjadi kapital
-  String capitalize() {
-    return this[0].toUpperCase() + substring(1);
+  // Redirecting Constructor Level 1
+  Product.basic(String id, String name, double price)
+      : this(
+          id: id,
+          name: name,
+          price: price,
+          category: "General",
+          stock: 0,
+        );
+
+  // Redirecting Constructor Level 2
+  Product.withCategory(
+      String id,
+      String name,
+      double price,
+      String category,
+      ) : this(
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          stock: 0,
+        );
+
+  // Redirecting Constructor Level 3
+  Product.full({
+    required String id,
+    required String name,
+    required double price,
+    required String category,
+    required int stock,
+  }) : this(
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          stock: stock,
+        );
+
+  @override
+  String toString() {
+    return '''
+=========================
+NAMA  : MARTA SAPUTRA
+NIM   : 251410020
+KELAS : SI2A
+=========================
+ID       : $id
+Produk   : $name
+Harga    : Rp${price.toStringAsFixed(0)}
+Kategori : $category
+Stok     : $stock
+''';
   }
-
-  // Mengecek apakah panjang teks genap
-  bool get isEvenLength {
-    return length % 2 == 0;
-  }
-}
-
-// Extension Method pada int
-extension IntExt on int {
-
-  // Mengecek bilangan genap
-  bool get isEven => this % 2 == 0;
-
-  // Menghitung kuadrat
-  int square() => this * this;
 }
 
 void main() {
+  var produk1 = Product.basic(
+    "P001",
+    "Laptop ASUS",
+    8500000,
+  );
 
-  print("===== TUGAS EXTENSION METHODS =====");
-  print("Nama  : Marta Saputra");
-  print("NIM   : 251410020");
-  print("Kelas : SI2A");
-  print("==================================");
+  var produk2 = Product.withCategory(
+    "P002",
+    "Mouse Gaming",
+    250000,
+    "Aksesoris",
+  );
 
-  // String Extension
-  String nama = "marta saputra";
+  var produk3 = Product.full(
+    id: "P003",
+    name: "Keyboard Mechanical",
+    price: 750000,
+    category: "Komputer",
+    stock: 20,
+  );
 
-  print("\nExtension String:");
-  print("Asli       : $nama");
-  print("Capitalize : ${nama.capitalize()}");
-  print("Panjang Genap? ${nama.isEvenLength}");
-
-  // Int Extension
-  int angka = 10;
-
-  print("\nExtension Integer:");
-  print("Angka       : $angka");
-  print("Bilangan Genap? ${angka.isEven}");
-  print("Kuadrat     : ${angka.square()}");
+  print(produk1);
+  print(produk2);
+  print(produk3);
 }
 </code></pre>
 </div>
@@ -259,48 +305,103 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+class Product {
+  final String id;
+  final String name;
+  final double price;
+  final String category;
+  final int stock;
 
-class Mahasiswa {
-  String nama;
-  String nim;
+  // Main Constructor
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.category,
+    required this.stock,
+  });
 
-  // Menyimpan instance yang sudah dibuat
-  static final Map<String, Mahasiswa> _cache = {};
+  // Redirecting Constructor Level 1
+  Product.basic(String id, String name, double price)
+      : this(
+          id: id,
+          name: name,
+          price: price,
+          category: "General",
+          stock: 0,
+        );
 
-  // Constructor private
-  Mahasiswa._internal(this.nama, this.nim);
+  // Redirecting Constructor Level 2
+  Product.withCategory(
+      String id,
+      String name,
+      double price,
+      String category,
+      ) : this(
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          stock: 0,
+        );
 
-  // Factory Constructor
-  factory Mahasiswa(String nama, String nim) {
-    if (_cache.containsKey(nim)) {
-      print("Instance dengan NIM $nim sudah ada.");
-      return _cache[nim]!;
-    } else {
-      print("Membuat instance baru untuk NIM $nim.");
-      final mahasiswa = Mahasiswa._internal(nama, nim);
-      _cache[nim] = mahasiswa;
-      return mahasiswa;
-    }
-  }
+  // Redirecting Constructor Level 3
+  Product.full({
+    required String id,
+    required String name,
+    required double price,
+    required String category,
+    required int stock,
+  }) : this(
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          stock: stock,
+        );
 
-  void tampilkanInfo() {
-    print("Nama : $nama");
-    print("NIM  : $nim");
+  @override
+  String toString() {
+    return '''
+=========================
+NAMA  : MARTA SAPUTRA
+NIM   : 251410020
+KELAS : SI2A
+=========================
+ID       : $id
+Produk   : $name
+Harga    : Rp${price.toStringAsFixed(0)}
+Kategori : $category
+Stok     : $stock
+''';
   }
 }
 
 void main() {
-  var mhs1 = Mahasiswa("MARTA SAPUTRA", "251410020");
-  var mhs2 = Mahasiswa("MARTA SAPUTRA", "251410020");
+  var produk1 = Product.basic(
+    "P001",
+    "Laptop ASUS",
+    8500000,
+  );
 
-  print("\nData Mahasiswa:");
-  mhs1.tampilkanInfo();
+  var produk2 = Product.withCategory(
+    "P002",
+    "Mouse Gaming",
+    250000,
+    "Aksesoris",
+  );
 
-  print("\nApakah kedua objek sama?");
-  print(identical(mhs1, mhs2)); // true
+  var produk3 = Product.full(
+    id: "P003",
+    name: "Keyboard Mechanical",
+    price: 750000,
+    category: "Komputer",
+    stock: 20,
+  );
+
+  print(produk1);
+  print(produk2);
+  print(produk3);
 }
 </code></pre>
 </div>
@@ -316,39 +417,68 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-class MyClass {
-  // Generative constructor
-  MyClass() {
-    print("Generative Constructor Dipanggil");
-  }
+import 'dart:math';
 
-  // Factory constructor
-  factory MyClass.create() {
-    print("Factory Constructor Dipanggil");
-    return MyClass();
+class Circle {
+  final double radius;
+
+  // Main Constructor
+  Circle(this.radius);
+
+  // Redirecting Constructor dari Diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
+
+  // Redirecting Constructor dari Keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
+
+  // Redirecting Constructor dari Luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
+
+  double get diameter => radius * 2;
+  double get circumference => 2 * pi * radius;
+  double get area => pi * radius * radius;
+
+  void display() {
+    print('==============================');
+    print('Nama  : MARTA SAPUTRA');
+    print('NIM   : 251410020');
+    print('Kelas : SI2A');
+    print('==============================');
+    print('Radius      : ${radius.toStringAsFixed(2)}');
+    print('Diameter    : ${diameter.toStringAsFixed(2)}');
+    print('Keliling    : ${circumference.toStringAsFixed(2)}');
+    print('Luas        : ${area.toStringAsFixed(2)}');
+    print('==============================\n');
   }
 }
 
 void main() {
-  print("=================================");
-  print("Nama  : MARTA SAPUTRA");
-  print("NIM   : 251410020");
-  print("Kelas : SI2A");
-  print("=================================");
+  // Dari radius
+  Circle c1 = Circle(7);
 
-  // Generative Constructor
-  var obj1 = MyClass();
+  // Dari diameter
+  Circle c2 = Circle.fromDiameter(14);
 
-  print("---------------------------------");
+  // Dari keliling
+  Circle c3 = Circle.fromCircumference(44);
 
-  // Factory Constructor
-  var obj2 = MyClass.create();
+  // Dari luas
+  Circle c4 = Circle.fromArea(154);
 
-  print("---------------------------------");
+  print('CIRCLE DARI RADIUS');
+  c1.display();
 
-  // Menggunakan variabel agar tidak warning
-  print("Objek Generative : $obj1");
-  print("Objek Factory    : $obj2");
+  print('CIRCLE DARI DIAMETER');
+  c2.display();
+
+  print('CIRCLE DARI KELILING');
+  c3.display();
+
+  print('CIRCLE DARI LUAS');
+  c4.display();
 }
 </code></pre>
 </div>
@@ -364,42 +494,68 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KELAS: SI2A
+import 'dart:math';
 
-class DatabaseConnection {
-  // Private Constructor
-  DatabaseConnection._internal() {
-    print("Creating database connection...");
-  }
+class Circle {
+  final double radius;
 
-  // Static instance (hanya satu)
-  static final DatabaseConnection _instance =
-      DatabaseConnection._internal();
+  // Main Constructor
+  Circle(this.radius);
 
-  // Factory Constructor
-  factory DatabaseConnection() {
-    return _instance;
-  }
+  // Redirecting Constructor dari Diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-  void connect() {
-    print("Connected to database");
+  // Redirecting Constructor dari Keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
+
+  // Redirecting Constructor dari Luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
+
+  double get diameter => radius * 2;
+  double get circumference => 2 * pi * radius;
+  double get area => pi * radius * radius;
+
+  void display() {
+    print('==============================');
+    print('Nama  : MARTA SAPUTRA');
+    print('NIM   : 251410020');
+    print('Kelas : SI2A');
+    print('==============================');
+    print('Radius      : ${radius.toStringAsFixed(2)}');
+    print('Diameter    : ${diameter.toStringAsFixed(2)}');
+    print('Keliling    : ${circumference.toStringAsFixed(2)}');
+    print('Luas        : ${area.toStringAsFixed(2)}');
+    print('==============================\n');
   }
 }
 
 void main() {
-  // Membuat dua objek
-  var db1 = DatabaseConnection();
-  var db2 = DatabaseConnection();
+  // Dari radius
+  Circle c1 = Circle(7);
 
-  // Mengecek apakah keduanya objek yang sama
-  print("Apakah db1 dan db2 sama?");
-  print(identical(db1, db2));
+  // Dari diameter
+  Circle c2 = Circle.fromDiameter(14);
 
-  // Menggunakan method connect
-  db1.connect();
-  db2.connect();
+  // Dari keliling
+  Circle c3 = Circle.fromCircumference(44);
+
+  // Dari luas
+  Circle c4 = Circle.fromArea(154);
+
+  print('CIRCLE DARI RADIUS');
+  c1.display();
+
+  print('CIRCLE DARI DIAMETER');
+  c2.display();
+
+  print('CIRCLE DARI KELILING');
+  c3.display();
+
+  print('CIRCLE DARI LUAS');
+  c4.display();
 }
 </code></pre>
 </div>
@@ -415,63 +571,68 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KELAS: SI2A
+import 'dart:math';
 
-class ConnectionPool {
-  final String host;
-  final int port;
+class Circle {
+  final double radius;
 
-  // Cache berdasarkan parameter
-  static final Map<String, ConnectionPool> _cache = {};
+  // Main Constructor
+  Circle(this.radius);
 
-  // Private Constructor
-  ConnectionPool._(this.host, this.port);
+  // Redirecting Constructor dari Diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-  // Factory Constructor
-  factory ConnectionPool(String host, int port) {
-    var key = '$host:$port';
+  // Redirecting Constructor dari Keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
 
-    // Return dari cache jika sudah ada
-    if (_cache.containsKey(key)) {
-      print('Returning cached connection for $key');
-      return _cache[key]!;
-    }
+  // Redirecting Constructor dari Luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
 
-    // Membuat koneksi baru
-    print('Creating new connection for $key');
-    var connection = ConnectionPool._(host, port);
-    _cache[key] = connection;
-    return connection;
-  }
+  double get diameter => radius * 2;
+  double get circumference => 2 * pi * radius;
+  double get area => pi * radius * radius;
 
-  void query(String sql) {
-    print('Executing "$sql" on $host:$port');
+  void display() {
+    print('==============================');
+    print('Nama  : MARTA SAPUTRA');
+    print('NIM   : 251410020');
+    print('Kelas : SI2A');
+    print('==============================');
+    print('Radius      : ${radius.toStringAsFixed(2)}');
+    print('Diameter    : ${diameter.toStringAsFixed(2)}');
+    print('Keliling    : ${circumference.toStringAsFixed(2)}');
+    print('Luas        : ${area.toStringAsFixed(2)}');
+    print('==============================\n');
   }
 }
 
 void main() {
-  print('--- Membuat conn1 (localhost:5432) ---');
-  var conn1 = ConnectionPool('localhost', 5432);
-  conn1.query('SELECT * FROM users');
+  // Dari radius
+  Circle c1 = Circle(7);
 
-  print('');
+  // Dari diameter
+  Circle c2 = Circle.fromDiameter(14);
 
-  print('--- Membuat conn2 (localhost:5432) ---');
-  var conn2 = ConnectionPool('localhost', 5432);
-  conn2.query('INSERT INTO products VALUES ("Laptop")');
+  // Dari keliling
+  Circle c3 = Circle.fromCircumference(44);
 
-  print('');
+  // Dari luas
+  Circle c4 = Circle.fromArea(154);
 
-  print('--- Membuat conn3 (db.example.com:3306) ---');
-  var conn3 = ConnectionPool('db.example.com', 3306);
-  conn3.query('UPDATE orders SET status="shipped" WHERE id=101');
+  print('CIRCLE DARI RADIUS');
+  c1.display();
 
-  print('');
+  print('CIRCLE DARI DIAMETER');
+  c2.display();
 
-  print('Apakah conn1 dan conn2 sama? ${identical(conn1, conn2)}');
-  print('Apakah conn1 dan conn3 sama? ${identical(conn1, conn3)}');
+  print('CIRCLE DARI KELILING');
+  c3.display();
+
+  print('CIRCLE DARI LUAS');
+  c4.display();
 }
 </code></pre>
 </div>
@@ -487,68 +648,68 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KELAS: SI2A
+import 'dart:math';
 
-abstract class Shape {
-  void draw();
+class Circle {
+  final double radius;
 
-  // Factory Constructor
-  factory Shape(String type) {
-    switch (type.toLowerCase()) {
-      case 'circle':
-        return Circle();
-      case 'square':
-        return Square();
-      case 'triangle':
-        return Triangle();
-      case 'rectangle':
-        return Rectangle();
-      default:
-        throw ArgumentError('Unknown shape: $type');
-    }
-  }
-}
+  // Main Constructor
+  Circle(this.radius);
 
-class Circle implements Shape {
-  @override
-  void draw() {
-    print('Drawing Circle');
-  }
-}
+  // Redirecting Constructor dari Diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-class Square implements Shape {
-  @override
-  void draw() {
-    print('Drawing Square');
-  }
-}
+  // Redirecting Constructor dari Keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
 
-class Triangle implements Shape {
-  @override
-  void draw() {
-    print('Drawing Triangle');
-  }
-}
+  // Redirecting Constructor dari Luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
 
-class Rectangle implements Shape {
-  @override
-  void draw() {
-    print('Drawing Rectangle');
+  double get diameter => radius * 2;
+  double get circumference => 2 * pi * radius;
+  double get area => pi * radius * radius;
+
+  void display() {
+    print('==============================');
+    print('Nama  : MARTA SAPUTRA');
+    print('NIM   : 251410020');
+    print('Kelas : SI2A');
+    print('==============================');
+    print('Radius      : ${radius.toStringAsFixed(2)}');
+    print('Diameter    : ${diameter.toStringAsFixed(2)}');
+    print('Keliling    : ${circumference.toStringAsFixed(2)}');
+    print('Luas        : ${area.toStringAsFixed(2)}');
+    print('==============================\n');
   }
 }
 
 void main() {
-  Shape circle = Shape('circle');
-  Shape square = Shape('square');
-  Shape triangle = Shape('triangle');
-  Shape rectangle = Shape('rectangle');
+  // Dari radius
+  Circle c1 = Circle(7);
 
-  circle.draw();
-  square.draw();
-  triangle.draw();
-  rectangle.draw();
+  // Dari diameter
+  Circle c2 = Circle.fromDiameter(14);
+
+  // Dari keliling
+  Circle c3 = Circle.fromCircumference(44);
+
+  // Dari luas
+  Circle c4 = Circle.fromArea(154);
+
+  print('CIRCLE DARI RADIUS');
+  c1.display();
+
+  print('CIRCLE DARI DIAMETER');
+  c2.display();
+
+  print('CIRCLE DARI KELILING');
+  c3.display();
+
+  print('CIRCLE DARI LUAS');
+  c4.display();
 }
 </code></pre>
 </div>
