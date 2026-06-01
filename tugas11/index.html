@@ -687,63 +687,62 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+import 'dart:math';
 
-class Mahasiswa {
-  String nama;
-  String nim;
-  String kelas;
+class Circle {
+  final double radius;
 
-  // Constructor utama
-  Mahasiswa(this.nama, this.nim, this.kelas);
+  // Main Constructor
+  Circle(this.radius);
 
-  // Named Constructor default
-  Mahasiswa.defaultData()
-      : nama = "MARTA SAPUTRA",
-        nim = "251410020",
-        kelas = "SI2A";
+  // Redirecting Constructor dari diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-  // Named Constructor custom
-  Mahasiswa.custom({
-    required this.nama,
-    required this.nim,
-    required this.kelas,
-  });
+  // Redirecting Constructor dari keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
 
-  // Method tampil data
-  void tampilkanData() {
-    print("===== DATA MAHASISWA =====");
-    print("Nama  : $nama");
-    print("NIM   : $nim");
-    print("Kelas : $kelas");
+  // Redirecting Constructor dari luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
+
+  double get diameter => radius * 2;
+  double get circumference => 2 * pi * radius;
+  double get area => pi * radius * radius;
+
+  @override
+  String toString() {
+    return '''
+==============================
+NAMA : MARTA SAPUTRA
+NIM  : 251410020
+KELAS: SI2A
+==============================
+Radius      : ${radius.toStringAsFixed(2)}
+Diameter    : ${diameter.toStringAsFixed(2)}
+Keliling    : ${circumference.toStringAsFixed(2)}
+Luas        : ${area.toStringAsFixed(2)}
+''';
   }
 }
 
 void main() {
-  // Object constructor biasa
-  Mahasiswa mhs1 =
-      Mahasiswa("MARTA SAPUTRA", "251410020", "SI2A");
+  print("=== Circle dari Radius ===");
+  var c1 = Circle(7);
+  print(c1);
 
-  // Object named constructor default
-  Mahasiswa mhs2 = Mahasiswa.defaultData();
+  print("=== Circle dari Diameter ===");
+  var c2 = Circle.fromDiameter(14);
+  print(c2);
 
-  // Object named constructor custom
-  Mahasiswa mhs3 = Mahasiswa.custom(
-    nama: "MARTA SAPUTRA",
-    nim: "251410020",
-    kelas: "SI2A",
-  );
+  print("=== Circle dari Keliling ===");
+  var c3 = Circle.fromCircumference(44);
+  print(c3);
 
-  // Output
-  mhs1.tampilkanData();
-  print("");
-
-  mhs2.tampilkanData();
-  print("");
-
-  mhs3.tampilkanData();
+  print("=== Circle dari Luas ===");
+  var c4 = Circle.fromArea(154);
+  print(c4);
 }
 </code></pre>
 </div>
@@ -759,50 +758,88 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+class DatabaseConfig {
+  final String host;
+  final int port;
+  final String username;
+  final String password;
+  final String database;
+  final bool useSSL;
 
-abstract class Response<T> {
-  final T? data;
-  final String? error;
+  // Data Mahasiswa
+  static const String nama = "MARTA SAPUTRA";
+  static const String nim = "251410020";
+  static const String kelas = "SI2A";
 
-  Response({this.data, this.error});
+  // Konstruktor Utama
+  DatabaseConfig({
+    required this.host,
+    required this.port,
+    required this.username,
+    required this.password,
+    required this.database,
+    this.useSSL = false,
+  });
 
-  // Factory untuk sukses
-  factory Response.success(T data) = SuccessResponse<T>;
+  // Redirecting Constructor
+  DatabaseConfig.development()
+      : this(
+          host: "localhost",
+          port: 5432,
+          username: "dev_user",
+          password: "dev_pass",
+          database: "dev_db",
+        );
 
-  // Factory untuk error
-  factory Response.error(String error) = ErrorResponse<T>;
-}
+  DatabaseConfig.production()
+      : this(
+          host: "db.example.com",
+          port: 5432,
+          username: "prod_user",
+          password: "prod_pass",
+          database: "prod_db",
+          useSSL: true,
+        );
 
-// Class success
-class SuccessResponse<T> extends Response<T> {
-  SuccessResponse(T data) : super(data: data);
-}
+  DatabaseConfig.localhost()
+      : this(
+          host: "localhost",
+          port: 3306,
+          username: "root",
+          password: "",
+          database: "test_db",
+        );
 
-// Class error
-class ErrorResponse<T> extends Response<T> {
-  ErrorResponse(String error) : super(error: error);
+  @override
+  String toString() {
+    return '''
+=================================
+NAMA  : $nama
+NIM   : $nim
+KELAS : $kelas
+=================================
+Host      : $host
+Port      : $port
+Username  : $username
+Database  : $database
+Use SSL   : $useSSL
+''';
+  }
 }
 
 void main() {
+  var dev = DatabaseConfig.development();
+  var prod = DatabaseConfig.production();
+  var local = DatabaseConfig.localhost();
 
-  // Data berhasil
-  Response<String> sukses =
-      Response.success("Data Mahasiswa Berhasil Ditampilkan");
+  print("=== DEVELOPMENT ===");
+  print(dev);
 
-  // Data error
-  Response<String> gagal =
-      Response.error("Data Mahasiswa Tidak Ditemukan");
+  print("=== PRODUCTION ===");
+  print(prod);
 
-  print("===== RESPONSE SUCCESS =====");
-  print(sukses.data);
-
-  print("");
-
-  print("===== RESPONSE ERROR =====");
-  print(gagal.error);
+  print("=== LOCALHOST ===");
+  print(local);
 }
 </code></pre>
 </div>
@@ -818,87 +855,77 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+class Person {
+  final String name;
+  final String nim;
+  final String kelas;
+  final int age;
+  final String? email;
 
-abstract class PaymentMethod {
+  // Main Constructor
+  Person({
+    required this.name,
+    required this.nim,
+    required this.kelas,
+    required this.age,
+    this.email,
+  });
 
-  void pay(double amount);
+  // Redirecting Constructors
+  Person.defaultStudent()
+      : this(
+          name: "MARTA SAPUTRA",
+          nim: "251410020",
+          kelas: "SI2A",
+          age: 20,
+          email: "marta251410020@student.ac.id",
+        );
 
-  // Factory Constructor
-  factory PaymentMethod(String type) {
+  Person.fromName(String name)
+      : this(
+          name: name,
+          nim: "251410020",
+          kelas: "SI2A",
+          age: 20,
+        );
 
-    switch (type.toLowerCase()) {
-
-      case 'creditcard':
-        return CreditCardPayment();
-
-      case 'paypal':
-        return PayPalPayment();
-
-      case 'banktransfer':
-        return BankTransferPayment();
-
-      case 'ewallet':
-        return EwalletPayment();
-
-      default:
-        throw ArgumentError(
-            'Metode pembayaran tidak ditemukan');
-    }
-  }
-}
-
-// Pembayaran Kartu Kredit
-class CreditCardPayment implements PaymentMethod {
-
-  @override
-  void pay(double amount) {
-    print("Pembayaran Rp$amount menggunakan Credit Card");
-  }
-}
-
-// Pembayaran PayPal
-class PayPalPayment implements PaymentMethod {
+  Person.student(String name, String nim, String kelas)
+      : this(
+          name: name,
+          nim: nim,
+          kelas: kelas,
+          age: 20,
+        );
 
   @override
-  void pay(double amount) {
-    print("Pembayaran Rp$amount menggunakan PayPal");
-  }
-}
-
-// Pembayaran Transfer Bank
-class BankTransferPayment implements PaymentMethod {
-
-  @override
-  void pay(double amount) {
-    print("Pembayaran Rp$amount menggunakan Bank Transfer");
-  }
-}
-
-// Pembayaran E-Wallet
-class EwalletPayment implements PaymentMethod {
-
-  @override
-  void pay(double amount) {
-    print("Pembayaran Rp$amount menggunakan E-Wallet");
+  String toString() {
+    return '''
+============================
+DATA MAHASISWA
+============================
+Nama   : $name
+NIM    : $nim
+Kelas  : $kelas
+Umur   : $age
+Email  : ${email ?? "Tidak Ada"}
+============================
+''';
   }
 }
 
 void main() {
+  var mahasiswa1 = Person.defaultStudent();
+  var mahasiswa2 = Person.fromName("MARTA SAPUTRA");
+  var mahasiswa3 = Person.student(
+    "MARTA SAPUTRA",
+    "251410020",
+    "SI2A",
+  );
 
-  PaymentMethod pembayaran1 =
-      PaymentMethod("creditcard");
-
-  PaymentMethod pembayaran2 =
-      PaymentMethod("ewallet");
-
-  pembayaran1.pay(500000);
-
-  pembayaran2.pay(250000);
+  print(mahasiswa1);
+  print(mahasiswa2);
+  print(mahasiswa3);
 }
-
 </code></pre>
 </div>
 
@@ -913,55 +940,86 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+class ApiResponse<T> {
+  final bool success;
+  final T? data;
+  final String? error;
+  final int statusCode;
+  final DateTime timestamp;
 
-class Mahasiswa {
-  String nama;
-  String nim;
-  String kelas;
+  // Main Constructor
+  ApiResponse({
+    required this.success,
+    this.data,
+    this.error,
+    required this.statusCode,
+    required this.timestamp,
+  });
 
-  // Constructor biasa
-  Mahasiswa(this.nama, this.nim, this.kelas);
+  // Success Response
+  ApiResponse.success(T this.data)
+      : this(
+          success: true,
+          data: data,
+          statusCode: 200,
+          timestamp: DateTime.now(),
+        );
 
-  // Factory Constructor
-  factory Mahasiswa.createMahasiswa(
-      String nama, String nim, String kelas) {
-    return Mahasiswa(nama, nim, kelas);
-  }
+  // Error Response
+  ApiResponse.error(String this.error, int statusCode)
+      : this(
+          success: false,
+          error: error,
+          statusCode: statusCode,
+          timestamp: DateTime.now(),
+        );
 
-  // Static Method
-  static Mahasiswa createStatic(
-      String nama, String nim, String kelas) {
-    return Mahasiswa(nama, nim, kelas);
-  }
+  // Not Found
+  ApiResponse.notFound()
+      : this(
+          success: false,
+          error: "Data tidak ditemukan",
+          statusCode: 404,
+          timestamp: DateTime.now(),
+        );
 
-  void tampilkanData() {
-    print('Nama  : $nama');
-    print('NIM   : $nim');
-    print('Kelas : $kelas');
+  @override
+  String toString() {
+    return '''
+=========================
+NAMA  : MARTA SAPUTRA
+NIM   : 251410020
+KELAS : SI2A
+=========================
+Success    : $success
+Data       : $data
+Error      : $error
+StatusCode : $statusCode
+Timestamp  : $timestamp
+''';
   }
 }
 
 void main() {
-  // Menggunakan Factory Constructor
-  var m1 = Mahasiswa.createMahasiswa(
-      'MARTA SAPUTRA', '251410020', 'SI2A');
+  var sukses = ApiResponse.success(
+    "Data Mahasiswa MARTA SAPUTRA berhasil dimuat",
+  );
 
-  // Menggunakan Static Method
-  var m2 = Mahasiswa.createStatic(
-      'MARTA SAPUTRA', '251410020', 'SI2A');
+  var gagal = ApiResponse.error(
+    "Terjadi kesalahan server",
+    500,
+  );
 
-  print('=== Factory Constructor ===');
-  m1.tampilkanData();
+  var tidakDitemukan = ApiResponse.notFound();
 
-  print('\n=== Static Method ===');
-  m2.tampilkanData();
+  print("=== SUCCESS RESPONSE ===");
+  print(sukses);
 
-  if (m1 != m2) {
-    print('\nKedua objek merupakan instansi yang berbeda.');
-  }
+  print("=== ERROR RESPONSE ===");
+  print(gagal);
+
+  print("=== NOT FOUND RESPONSE ===");
+  print(tidakDitemukan);
 }
 </code></pre>
 </div>
@@ -977,58 +1035,103 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+class Product {
+  final String id;
+  final String name;
+  final double price;
+  final String category;
+  final int stock;
 
-class Mahasiswa {
-  final String nama;
-  final String nim;
-  final String kelas;
+  // Main Constructor
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.category,
+    required this.stock,
+  });
 
-  // Cache untuk menyimpan objek yang sudah dibuat
-  static final Map<String, Mahasiswa> _cache = {};
+  // Redirecting Constructor Level 1
+  Product.basic(String id, String name, double price)
+      : this(
+          id: id,
+          name: name,
+          price: price,
+          category: "General",
+          stock: 0,
+        );
 
-  // Private Constructor
-  Mahasiswa._(this.nama, this.nim, this.kelas);
+  // Redirecting Constructor Level 2
+  Product.withCategory(
+      String id,
+      String name,
+      double price,
+      String category,
+      ) : this(
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          stock: 0,
+        );
 
-  // Factory Constructor dengan Cache
-  factory Mahasiswa(String nama, String nim, String kelas) {
-    String key = "$nama-$nim-$kelas";
-
-    if (!_cache.containsKey(key)) {
-      _cache[key] = Mahasiswa._(nama, nim, kelas);
-    }
-
-    return _cache[key]!;
-  }
+  // Redirecting Constructor Level 3
+  Product.full({
+    required String id,
+    required String name,
+    required double price,
+    required String category,
+    required int stock,
+  }) : this(
+          id: id,
+          name: name,
+          price: price,
+          category: category,
+          stock: stock,
+        );
 
   @override
   String toString() {
-    return "Nama: $nama, NIM: $nim, Kelas: $kelas";
+    return '''
+=========================
+NAMA  : MARTA SAPUTRA
+NIM   : 251410020
+KELAS : SI2A
+=========================
+ID       : $id
+Produk   : $name
+Harga    : Rp${price.toStringAsFixed(0)}
+Kategori : $category
+Stok     : $stock
+''';
   }
 }
 
 void main() {
-  // Membuat objek pertama
-  var mhs1 = Mahasiswa(
-    "MARTA SAPUTRA",
-    "251410020",
-    "SI2A",
+  var produk1 = Product.basic(
+    "P001",
+    "Laptop ASUS",
+    8500000,
   );
 
-  // Membuat objek kedua dengan data yang sama
-  var mhs2 = Mahasiswa(
-    "MARTA SAPUTRA",
-    "251410020",
-    "SI2A",
+  var produk2 = Product.withCategory(
+    "P002",
+    "Mouse Gaming",
+    250000,
+    "Aksesoris",
   );
 
-  print("Data Mahasiswa:");
-  print(mhs1);
+  var produk3 = Product.full(
+    id: "P003",
+    name: "Keyboard Mechanical",
+    price: 750000,
+    category: "Komputer",
+    stock: 20,
+  );
 
-  print("\nApakah mhs1 dan mhs2 objek yang sama?");
-  print(identical(mhs1, mhs2)); // true karena menggunakan cache
+  print(produk1);
+  print(produk2);
+  print(produk3);
 }
 </code></pre>
 </div>
@@ -1044,94 +1147,76 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// NAMA : MARTA SAPUTRA
-// NIM  : 251410020
-// KLS  : SI2A
+class User {
+  final String id;
+  final String username;
+  final String email;
+  final DateTime createdAt;
+  final bool isActive;
 
-// Abstract Class
-abstract class Document {
-  void render();
+  // Constructor utama
+  User({
+    required this.id,
+    required this.username,
+    required this.email,
+    DateTime? createdAt,
+    this.isActive = true,
+  }) : createdAt = createdAt ?? DateTime.now();
 
-  // Factory Constructor
-  factory Document(String type, String content) {
-    switch (type.toLowerCase()) {
-      case 'pdf':
-        return PdfDocument(content);
-      case 'word':
-        return WordDocument(content);
-      case 'html':
-        return HtmlDocument(content);
-      default:
-        return PlainTextDocument(content);
-    }
-  }
-}
+  // Redirecting Constructor Guest
+  User.guest()
+      : this(
+          id: "guest_001",
+          username: "Guest",
+          email: "guest@example.com",
+          isActive: false,
+        );
 
-// PDF Document
-class PdfDocument implements Document {
-  final String content;
+  // Redirecting Constructor Mahasiswa
+  User.mahasiswa()
+      : this(
+          id: "251410020",
+          username: "MARTA SAPUTRA",
+          email: "251410020@kampus.ac.id",
+          isActive: true,
+        );
 
-  PdfDocument(this.content);
-
-  @override
-  void render() {
-    print('Rendering PDF: $content');
-  }
-}
-
-// Word Document
-class WordDocument implements Document {
-  final String content;
-
-  WordDocument(this.content);
-
-  @override
-  void render() {
-    print('Rendering Word: $content');
-  }
-}
-
-// HTML Document
-class HtmlDocument implements Document {
-  final String content;
-
-  HtmlDocument(this.content);
+  // Redirecting Constructor dari Username
+  User.fromUsername(String username)
+      : this(
+          id: "user_${username.toLowerCase()}",
+          username: username,
+          email: "${username.toLowerCase()}@example.com",
+        );
 
   @override
-  void render() {
-    print('Rendering HTML: $content');
-  }
-}
-
-// Plain Text Document
-class PlainTextDocument implements Document {
-  final String content;
-
-  PlainTextDocument(this.content);
-
-  @override
-  void render() {
-    print('Rendering Plain Text: $content');
+  String toString() {
+    return '''
+=========================
+DATA MAHASISWA
+=========================
+Nama      : MARTA SAPUTRA
+NIM       : 251410020
+Kelas     : SI2A
+-------------------------
+ID User   : $id
+Username  : $username
+Email     : $email
+Aktif     : $isActive
+Dibuat    : $createdAt
+=========================
+''';
   }
 }
 
 void main() {
-  print('=== STUDI KASUS DOCUMENT FACTORY ===\n');
+  var guest = User.guest();
+  var mahasiswa = User.mahasiswa();
+  var custom = User.fromUsername("MartaSaputra");
 
-  Document doc1 = Document('pdf', 'Laporan Mahasiswa');
-  Document doc2 = Document('word', 'Tugas Pemrograman Dart');
-  Document doc3 = Document('html', '<h1>Selamat Datang</h1>');
-  Document doc4 = Document('txt', 'Dokumen Teks Biasa');
-
-  doc1.render();
-  doc2.render();
-  doc3.render();
-  doc4.render();
-
-  print('\nData Praktikan');
-  print('Nama  : MARTA SAPUTRA');
-  print('NIM   : 251410020');
-  print('Kelas : SI2A');
+  print(guest);
+  print(mahasiswa);
+  print(custom);
 }
 </code></pre>
 </div>
@@ -1147,56 +1232,68 @@ void main() {
 
 <div class="code-box">
 <pre><code>
-// Nama  : Marta Saputra
-// NIM   : 251410020
-// Kelas : SI2A
+import 'dart:math';
 
-class Mahasiswa {
-  String nama;
-  String nim;
+class Circle {
+  final double radius;
 
-  // Cache untuk menyimpan objek yang sudah dibuat
-  static final Map<String, Mahasiswa> _cache = {};
+  // Main Constructor
+  Circle(this.radius);
 
-  // Generative Constructor
-  Mahasiswa._internal(this.nama, this.nim);
+  // Redirecting Constructor dari Diameter
+  Circle.fromDiameter(double diameter)
+      : this(diameter / 2);
 
-  // Factory Constructor
-  factory Mahasiswa(String nama, String nim) {
-    // Validasi
-    if (nama.isEmpty || nim.isEmpty) {
-      throw ArgumentError("Nama dan NIM tidak boleh kosong!");
-    }
+  // Redirecting Constructor dari Keliling
+  Circle.fromCircumference(double circumference)
+      : this(circumference / (2 * pi));
 
-    // Caching
-    if (_cache.containsKey(nim)) {
-      print("Mengambil data dari cache...");
-      return _cache[nim]!;
-    }
+  // Redirecting Constructor dari Luas
+  Circle.fromArea(double area)
+      : this(sqrt(area / pi));
 
-    print("Membuat objek baru...");
-    final mahasiswaBaru = Mahasiswa._internal(nama, nim);
+  double get diameter => radius * 2;
+  double get circumference => 2 * pi * radius;
+  double get area => pi * radius * radius;
 
-    _cache[nim] = mahasiswaBaru;
-
-    return mahasiswaBaru;
-  }
-
-  void tampilkanData() {
-    print("Nama : $nama");
-    print("NIM  : $nim");
+  void display() {
+    print('==============================');
+    print('Nama  : MARTA SAPUTRA');
+    print('NIM   : 251410020');
+    print('Kelas : SI2A');
+    print('==============================');
+    print('Radius      : ${radius.toStringAsFixed(2)}');
+    print('Diameter    : ${diameter.toStringAsFixed(2)}');
+    print('Keliling    : ${circumference.toStringAsFixed(2)}');
+    print('Luas        : ${area.toStringAsFixed(2)}');
+    print('==============================\n');
   }
 }
 
 void main() {
-  var m1 = Mahasiswa("Marta Saputra", "251410020");
-  var m2 = Mahasiswa("Marta Saputra", "251410020");
+  // Dari radius
+  Circle c1 = Circle(7);
 
-  print("\nData Mahasiswa:");
-  m1.tampilkanData();
+  // Dari diameter
+  Circle c2 = Circle.fromDiameter(14);
 
-  print("\nApakah m1 dan m2 objek yang sama?");
-  print(identical(m1, m2));
+  // Dari keliling
+  Circle c3 = Circle.fromCircumference(44);
+
+  // Dari luas
+  Circle c4 = Circle.fromArea(154);
+
+  print('CIRCLE DARI RADIUS');
+  c1.display();
+
+  print('CIRCLE DARI DIAMETER');
+  c2.display();
+
+  print('CIRCLE DARI KELILING');
+  c3.display();
+
+  print('CIRCLE DARI LUAS');
+  c4.display();
 }
 </code></pre>
 </div>
