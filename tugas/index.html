@@ -337,15 +337,109 @@ code{
             </div>
 
 <pre><code>
+// Nama   : MARRTA SAPUTRA
+// Nim    : 251410020
+// Kelas  : SIA2
+
+import 'dart:math' as math;
+
 class Circle {
   final double radius;
 
-  Circle(this.radius);
+  // Main constructor with validation
+  Circle(this.radius) {
+    if (radius <= 0) {
+      throw ArgumentError('⚡ Jari-jari lingkaran wajib bernilai positif! 🌟');
+    }
+  }
 
-  Circle.fromDiameter(double d)
-      : this(d / 2);
+  // Redirecting constructor from diameter
+  Circle.fromDiameter(double d) : this(d / 2.0);
 
+  // Redirecting constructor from keliling (circumference)
+  Circle.fromKeliling(double circumference) : this(circumference / (2.0 * math.pi));
+
+  // Redirecting constructor from luas (area)
+  Circle.fromLuas(double area) : this(math.sqrt(area / math.pi));
+
+  // Getter for diameter
   double get diameter => radius * 2;
+
+  // Getter for keliling (circumference)
+  double get keliling => 2.0 * math.pi * radius;
+
+  // Getter for luas (area)
+  double get luas => math.pi * radius * radius;
+
+  @override
+  String toString() {
+    return 'Circle(radius: ${radius.toStringAsFixed(2)}, '
+        'diameter: ${diameter.toStringAsFixed(2)}, '
+        'keliling: ${keliling.toStringAsFixed(2)}, '
+        'luas: ${luas.toStringAsFixed(2)})';
+  }
+}
+
+void main() {
+  print('📌 DEMO REDIRECTING CONSTRUCTOR - SIA2 | MARTA SAPUTRA 📌\n');
+
+  print('🔹 [Circle 1] Inisialisasi Melalui Radius (Main Constructor: 5.0) 🔹');
+  final circle1 = Circle(5.0);
+  print('⚡ $circle1');
+  print('');
+
+  print('🔹 [Circle 2] Inisialisasi Melalui Diameter (Redirecting: 10.0) 🔹');
+  final circle2 = Circle.fromDiameter(10.0);
+  print('⚡ $circle2');
+  print('✨ Apakah radius circle2 sama dengan circle1? ${circle1.radius == circle2.radius}');
+  print('');
+
+  print('🔹 [Circle 3] Inisialisasi Melalui Keliling (Redirecting) 🔹');
+  final circle3 = Circle.fromKeliling(31.41592653589793);
+  print('⚡ $circle3');
+  print('✨ Apakah radius circle3 mendekati circle1? ${(circle1.radius - circle3.radius).abs() < 1e-9}');
+  print('');
+
+  print('🔹 [Circle 4] Inisialisasi Melalui Luas (Redirecting) 🔹');
+  final circle4 = Circle.fromLuas(78.53981633974483);
+  print('⚡ $circle4');
+  print('✨ Apakah radius circle4 mendekati circle1? ${(circle1.radius - circle4.radius).abs() < 1e-9}');
+  print('');
+
+  print('🔸 Uji Validasi Radius Negatif (Ekspektasi Error) 🔸');
+  try {
+    final invalidCircle = Circle(-2.0);
+    print(invalidCircle);
+  } catch (e) {
+    print('⚡ ERROR DITANGKAP: $e');
+  }
+  print('');
+
+  print('🔸 Uji Validasi Diameter Nol (Ekspektasi Error) 🔸');
+  try {
+    final invalidDiameter = Circle.fromDiameter(0);
+    print(invalidDiameter);
+  } catch (e) {
+    print('⚡ ERROR DITANGKAP: $e');
+  }
+  print('');
+
+  print('🔸 Uji Validasi Keliling Negatif (Ekspektasi Error) 🔸');
+  try {
+    final invalidKeliling = Circle.fromKeliling(-10.0);
+    print(invalidKeliling);
+  } catch (e) {
+    print('⚡ ERROR DITANGKAP: $e');
+  }
+  print('');
+
+  print('🔸 Uji Validasi Luas Negatif (Ekspektasi Error) 🔸');
+  try {
+    final invalidLuas = Circle.fromLuas(-50.0);
+    print(invalidLuas);
+  } catch (e) {
+    print('⚡ ERROR DITANGKAP: $e');
+  }
 }
 </code></pre>
 
